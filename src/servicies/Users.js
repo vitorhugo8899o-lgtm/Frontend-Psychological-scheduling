@@ -80,5 +80,21 @@ async function Logout() {
 }
 
 
+async function UpdateUserInfo(update_data) {
+    const payload = {
+        email: update_data.email,
+        password: update_data.password
+    }
+    try {
+        const response = await api("/api/v1/users", {
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+    } catch (error) {
+        throw new Error(error.message || "Erro de conexão com o servidor.");
+    }
+}
 
-export { CreateUser, Login }
+
+
+export { CreateUser, Login, Logout, UpdateUserInfo }
