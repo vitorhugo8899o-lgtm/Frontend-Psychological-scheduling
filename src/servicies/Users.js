@@ -19,5 +19,43 @@ async function CreateUser(data) {
 }
 
 
+async function Login(data) {
+    const payload = {
+        username: data.email,
+        password: data.password,
+        grant_type: "password",
+        scope: "",
+    };
 
-export { CreateUser }
+    const formBody = new URLSearchParams(payload).toString();
+
+    try {
+        const response = await api("/api/v1/login", {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            method: "POST",
+            body: formBody,
+            credentials: 'include'
+        });
+        return response;
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            if (status === 401) {
+                errorMessage = "Login ou senha incorretos. Verifique suas credenciais.";
+            } else if (detail) {
+                errorMessage = detail;
+            }
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+
+export { CreateUser, Login }
