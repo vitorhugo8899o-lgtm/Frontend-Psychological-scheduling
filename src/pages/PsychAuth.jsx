@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Mail, Lock, ArrowRight, ShieldCheck, AlertCircle, Brain } from "lucide-react";
 import { InputField } from "../componentes/Conponentes";
 import { Login } from "../servicies/Users";
+import { replace, useNavigate } from "react-router-dom";
+
 
 const PsychLoginPage = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +13,8 @@ const PsychLoginPage = () => {
 
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -29,6 +33,7 @@ const PsychLoginPage = () => {
         setIsLoading(true);
         try {
             const response = await Login(formData);
+
             if (response.user.role != 'psychologist') {
                 setErrorMessage("O usuário não é um psicólogo")
                 return;

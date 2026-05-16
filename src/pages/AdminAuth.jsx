@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Mail, Lock, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
 import { InputField } from "../componentes/Conponentes";
 import { Login } from "../servicies/Users";
+import { replace, useNavigate } from "react-router-dom";
+
 
 const AdminLoginPage = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +13,8 @@ const AdminLoginPage = () => {
 
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { id, value } = e.target;
