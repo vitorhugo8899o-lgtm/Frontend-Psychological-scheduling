@@ -90,11 +90,61 @@ async function UpdateUserInfo(update_data) {
             method: "POST",
             body: JSON.stringify(payload),
         });
+        return response;
     } catch (error) {
         throw new Error(error.message || "Erro de conexão com o servidor.");
     }
 }
 
 
+async function DesactiveAccount() {
+    try {
+        const response = await api("/api/v1/users", {
+            method: "DELETE",
+            credentials: 'include'
+        }
+        )
+        return;
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
 
-export { CreateUser, Login, Logout, UpdateUserInfo }
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao desativar usuário. Status: ${status}, detalhe: ${detail}`
+        }
+
+        throw new Error(errorMessage);
+    }
+}
+
+
+async function GetUserAppoiment() {
+    try {
+        const response = await api("/api/v1/users/me/appointments", {
+            method: "GET",
+            credentials: 'include'
+        })
+
+        return response;
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao buscar consultas do usuário. Status: ${status}, detalhe: ${detail}`
+        }
+
+        throw new Error(errorMessage);
+    }
+}
+
+
+
+
+
+
+export { CreateUser, Login, Logout, UpdateUserInfo, DesactiveAccount }
