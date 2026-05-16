@@ -63,7 +63,7 @@ export default function InitialPage() {
           </nav>
 
           <button className="bg-[#A60321] hover:bg-[#8C5C32] transition text-white px-5 py-2 rounded-md text-sm uppercase tracking-wide">
-            Agendar Consulta
+            <a href="/auth">Agendar Consulta</a>
           </button>
         </div>
       </header>
@@ -143,7 +143,7 @@ export default function InitialPage() {
             </div>
 
             <button className="bg-[#A60321] hover:bg-[#8C5C32] transition text-white px-6 py-3 rounded-md uppercase tracking-wide text-sm h-fit">
-              Entra com sua conta para visualizar todos os Serviços
+              <a href="/auth">Entra com sua conta para visualizar todos os Serviços</a>
             </button>
           </div>
 
@@ -208,7 +208,6 @@ export default function InitialPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="bg-[#4A2E14] text-[#F2E9D8] py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
