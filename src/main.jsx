@@ -6,6 +6,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthPage from './pages/UserAuth.jsx';
 import AdminLoginPage from './pages/AdminAuth.jsx';
 import PsychLoginPage from './pages/PsychAuth.jsx';
+import ClinicaHome from './pages/HomeUser.jsx';
+import ProtectedRoute from './componentes/ProtectedRoute.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 const routers = createBrowserRouter([
   {
@@ -23,6 +26,15 @@ const routers = createBrowserRouter([
   {
     path: "/auth-psych",
     element: <PsychLoginPage />
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/home",
+        element: <ClinicaHome />
+      }
+    ]
   }
 ])
 
@@ -32,6 +44,8 @@ const routers = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={routers} />
+    <AuthProvider>
+      <RouterProvider router={routers} />
+    </AuthProvider>
   </StrictMode>,
 );

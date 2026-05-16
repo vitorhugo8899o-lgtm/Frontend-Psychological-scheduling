@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Mail, Lock, User, ArrowRight, LogIn, AlertCircle } from "lucide-react";
 import { CreateUser, Login } from "../servicies/Users";
 import { InputField } from "../componentes/Conponentes"
+import { replace, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 
 const AuthPage = () => {
@@ -11,6 +13,10 @@ const AuthPage = () => {
         email: "",
         password: "",
     });
+
+    const navigate = useNavigate();
+
+    const { checkAuth } = useAuth();
 
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -65,18 +71,41 @@ const AuthPage = () => {
                     email: email,
                     password: password
                 }
-
                 const response = await Login(data)
+
+                const success = await checkAuth();
+
+                if (success) {
+                    navigate('/home', { replace: true });
+                } else {
+                    setErrorMessage("Sessão inválida após o login.");
+                }
+
             } else {
                 const data = {
                     fullname: fullName,
                     email: email,
                     password: password
                 }
+
+                const login = {
+                    email: email,
+                    password: password
+                }
+
                 const response = await CreateUser(data)
+
+                await Login(login)
+
+                const success = await checkAuth();
+
+                if (success) {
+                    navigate('/home', { replace: true });
+                } else {
+                    setErrorMessage("Sessão inválida após o login.");
+                }
             }
         } catch (error) {
-            console.error("Erro na integração:", error.message);
             setErrorMessage(error.message || "Ocorreu um erro inesperado. Tente novamente.");
         } finally {
             setIsLoading(false);
