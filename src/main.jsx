@@ -8,6 +8,7 @@ import AdminLoginPage from './pages/AdminAuth.jsx';
 import PsychLoginPage from './pages/PsychAuth.jsx';
 import ClinicaHome from './pages/HomeUser.jsx';
 import ProtectedRoute from './componentes/ProtectedRoute.jsx';
+import Simulation from './pages/ConsultationSimulation.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 const routers = createBrowserRouter([
@@ -33,6 +34,10 @@ const routers = createBrowserRouter([
       {
         path: "/home",
         element: <ClinicaHome />
+      },
+      {
+        path: "/simulation",
+        element: <Simulation />
       }
     ]
   }
