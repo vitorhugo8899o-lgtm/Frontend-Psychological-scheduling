@@ -19,7 +19,8 @@ import {
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetUserNextsAppoiments } from '../servicies/Appoiment';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import SidebarButton from '../componentes/SidebarButton';
 
 export default function ClinicaHome() {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -81,8 +82,6 @@ export default function ClinicaHome() {
 
     const statusConfig = {
         confirmed: { label: 'Confirmada', className: 'bg-green-500/10 text-green-500' },
-        pending: { label: 'Pendente', className: 'bg-amber-500/10 text-amber-500' },
-        cancelled: { label: 'Cancelada', className: 'bg-red-500/10 text-red-500' }
     };
 
     const sendPrompt = (text) => {
@@ -155,44 +154,38 @@ export default function ClinicaHome() {
                 </div>
 
                 <nav className="flex-1 py-8 flex flex-col gap-1 overflow-y-auto">
-                    <button
-                        onClick={() => handleMenuClick()}
-                        className={`flex items-center gap-3.5 px-6 py-3.5 text-sm text-left border-l-4 border-[#A60321] bg-white/10 text-[#FAF5EC]`}
-                    >
-                        <Home className="w-5 h-5 text-[#A60321]" />
-                        <span>Início</span>
-                    </button>
 
-                    <button
+                    <SidebarButton
+                        icon={Home}
+                        label="Início"
+                        to="/home"
+                        isActive
+                    />
+
+                    <SidebarButton
+                        icon={CalendarPlus}
+                        label="Marcar consulta"
                         onClick={() => handleMenuClick('Quero marcar uma consulta')}
-                        className="flex items-center gap-3.5 px-6 py-3.5 text-sm text-left border-l-4 border-transparent text-[#FAF5EC]/80 hover:text-[#FAF5EC] hover:bg-white/5 hover:border-[#A60321] transition-all"
-                    >
-                        <CalendarPlus className="w-5 h-5 text-gray-400" />
-                        <span>Marcar consulta</span>
-                    </button>
+                    />
 
-                    <button
+                    <SidebarButton
+                        icon={Search}
+                        label="Busca avançada por serviços"
                         onClick={() => handleMenuClick('Buscar serviços disponíveis')}
-                        className="flex items-center gap-3.5 px-6 py-3.5 text-sm text-left border-l-4 border-transparent text-[#FAF5EC]/80 hover:text-[#FAF5EC] hover:bg-white/5 hover:border-[#A60321] transition-all"
-                    >
-                        <Search className="w-5 h-5 text-gray-400" />
-                        <span>Busca avançada por serviços</span>
-                    </button>
+                    />
 
-                    <button
+                    <SidebarButton
+                        icon={ClipboardList}
+                        label="Minhas consultas"
                         onClick={() => handleMenuClick('Ver minhas consultas agendadas')}
-                        className="flex items-center gap-3.5 px-6 py-3.5 text-sm text-left border-l-4 border-transparent text-[#FAF5EC]/80 hover:text-[#FAF5EC] hover:bg-white/5 hover:border-[#A60321] transition-all"
-                    >
-                        <ClipboardList className="w-5 h-5 text-gray-400" />
-                        <span>Minhas consultas</span>
-                    </button>
-                    <button
+                    />
+
+                    <SidebarButton
+                        icon={LogOut}
+                        label="Sair"
                         onClick={LogoutUser}
-                        className="flex items-center gap-3.5 px-6 py-3.5 text-sm text-left border-l-4 border-transparent text-[#FAF5EC]/80 hover:text-[#FAF5EC] hover:bg-white/5 hover:border-[#A60321] transition-all"
-                    >
-                        <LogOut className="w-5 h-5 text-gray-400" />
-                        <span>Sair</span>
-                    </button>
+                    />
+
                 </nav>
             </aside>
 
@@ -207,15 +200,34 @@ export default function ClinicaHome() {
                 </header>
 
                 <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-10">
-                    <div
-                        onClick={() => sendPrompt('Agendar nova consulta')}
-                        className={`p-6 rounded-2xl border cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#A60321] ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
-                            }`}
-                    >
-                        <Calendar className="w-7 h-7 text-[#A60321] mb-4" />
-                        <h3 className={`text-base font-medium mb-1.5 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>Agendar consulta</h3>
-                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Escolha especialidade, médico e horário disponível</p>
-                    </div>
+                    <Link to="/simulation">
+                        <div
+                            className={`p-6 rounded-2xl border cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#A60321] ${isDarkMode
+                                ? 'bg-[#131c2e] border-gray-800'
+                                : 'bg-white border-[#8C5C32]/15'
+                                }`}
+                        >
+                            <Calendar className="w-7 h-7 text-[#A60321] mb-4" />
+
+                            <h3
+                                className={`text-base font-medium mb-1.5 ${isDarkMode
+                                    ? 'text-gray-200'
+                                    : 'text-[#4A2E14]'
+                                    }`}
+                            >
+                                Simular agendamento
+                            </h3>
+
+                            <p
+                                className={`text-xs leading-relaxed ${isDarkMode
+                                    ? 'text-gray-400'
+                                    : 'text-[#8C5C32]'
+                                    }`}
+                            >
+                                Escolha uma data e horário para verificar quais profissionais estarão disponíveis nesse período.
+                            </p>
+                        </div>
+                    </Link>
 
                     <div
                         onClick={() => sendPrompt('Histórico médico')}
@@ -223,18 +235,8 @@ export default function ClinicaHome() {
                             }`}
                     >
                         <FileText className="w-7 h-7 text-[#A60321] mb-4" />
-                        <h3 className={`text-base font-medium mb-1.5 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>Histórico médico</h3>
-                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Acesse seus registros e exames anteriores</p>
-                    </div>
-
-                    <div
-                        onClick={() => sendPrompt('Receitas médicas')}
-                        className={`p-6 rounded-2xl border cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#A60321] ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
-                            }`}
-                    >
-                        <Pill className="w-7 h-7 text-[#A60321] mb-4" />
-                        <h3 className={`text-base font-medium mb-1.5 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>Receitas</h3>
-                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Visualize e renove suas prescrições médicas</p>
+                        <h3 className={`text-base font-medium mb-1.5 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>Histórico de consultas</h3>
+                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Acesse seus registros de consultas anteriores</p>
                     </div>
                 </section>
 
