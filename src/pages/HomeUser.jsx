@@ -22,10 +22,12 @@ import { GetUserNextsAppoiments } from '../servicies/Appoiment';
 import { useNavigate, Link } from "react-router-dom";
 import SidebarButton from '../componentes/SidebarButton';
 
-export default function ClinicaHome() {
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+import { useTheme } from '../context/ThemeContext';
 
+export default function ClinicaHome() {
+    const { isDarkMode, toggleTheme } = useTheme();
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [appointments, setAppointments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [apiError, setApiError] = useState(null);
@@ -51,7 +53,6 @@ export default function ClinicaHome() {
                 } else {
                     data = response;
                 }
-
 
                 if (Array.isArray(data)) {
                     setAppointments(data);
@@ -171,7 +172,7 @@ export default function ClinicaHome() {
                     <SidebarButton
                         icon={Search}
                         label="Busca avançada por serviços"
-                        onClick={() => handleMenuClick('Buscar serviços disponíveis')}
+                        to="/filter-services"
                     />
 
                     <SidebarButton
@@ -250,7 +251,7 @@ export default function ClinicaHome() {
                     {isLoading && (
                         <div className="flex flex-col items-center justify-center py-8 gap-3">
                             <Loader2 className="w-8 h-8 text-[#A60321] animate-spin" />
-                            <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Carregando suas consultas futuras...</span>
+                            <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Carregando suas consultas futures...</span>
                         </div>
                     )}
 
@@ -314,7 +315,7 @@ export default function ClinicaHome() {
             </main>
 
             <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
+                onClick={toggleTheme}
                 className={`fixed bottom-6 right-6 p-4 rounded-full shadow-xl flex items-center gap-2 font-medium text-sm transition-all duration-300 transform hover:scale-105 active:scale-95 z-50 ${isDarkMode
                     ? 'bg-[#FAF5EC] text-[#4A2E14] hover:bg-[#ebdcc5]'
                     : 'bg-gray-900 text-white hover:bg-gray-800'

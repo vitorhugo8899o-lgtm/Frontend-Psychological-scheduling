@@ -9,6 +9,7 @@ import PsychLoginPage from './pages/PsychAuth.jsx';
 import ClinicaHome from './pages/HomeUser.jsx';
 import ProtectedRoute from './componentes/ProtectedRoute.jsx';
 import Simulation from './pages/ConsultationSimulation.jsx';
+import SearchServices from './pages/SearchService.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 const routers = createBrowserRouter([
@@ -38,6 +39,10 @@ const routers = createBrowserRouter([
       {
         path: "/simulation",
         element: <Simulation />
+      },
+      {
+        path: "/filter-services",
+        element: <SearchServices />
       }
     ]
   }

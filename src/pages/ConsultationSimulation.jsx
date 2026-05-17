@@ -21,10 +21,11 @@ import { GetAllServices } from '../servicies/Services';
 import { SimulationAppoiment } from '../servicies/Appoiment';
 import { Logout } from '../servicies/Users';
 import SidebarButton from '../componentes/SidebarButton';
+import { useTheme } from '../context/ThemeContext';
 
 
 export default function Simulation() {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const { isDarkMode, toggleTheme } = useTheme();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const [selectedDate, setSelectedDate] = useState('');
@@ -217,7 +218,6 @@ export default function Simulation() {
                         icon={Home}
                         label="Início"
                         to="/home"
-                        isActive
                     />
 
                     <SidebarButton
@@ -229,7 +229,7 @@ export default function Simulation() {
                     <SidebarButton
                         icon={Search}
                         label="Busca avançada por serviços"
-                        onClick={() => handleMenuClick('Buscar serviços disponíveis')}
+                        to="/filter-services"
                     />
 
                     <SidebarButton
@@ -384,7 +384,7 @@ export default function Simulation() {
             </main>
 
             <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
+                onClick={toggleTheme}
                 className={`fixed bottom-6 right-6 p-4 rounded-full shadow-xl flex items-center gap-2 font-medium text-sm transition-all duration-300 transform hover:scale-105 active:scale-95 z-50 ${isDarkMode ? 'bg-[#FAF5EC] text-[#4A2E14] hover:bg-[#ebdcc5]' : 'bg-gray-900 text-white hover:bg-gray-800'
                     }`}
             >

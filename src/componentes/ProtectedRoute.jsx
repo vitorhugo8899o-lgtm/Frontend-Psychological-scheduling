@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { ThemeProvider } from '../context/ThemeContext'
 
 
 const ProtectedRoute = () => {
@@ -13,7 +14,11 @@ const ProtectedRoute = () => {
         return <Navigate to="/auth" replace />;
     }
 
-    return <Outlet />;
+    return (
+        <ThemeProvider>
+            <Outlet />
+        </ThemeProvider>
+    )
 };
 
 export default ProtectedRoute;
