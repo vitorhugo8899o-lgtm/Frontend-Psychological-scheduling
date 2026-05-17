@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Heart,
     Home,
@@ -13,19 +13,77 @@ import {
     Sun,
     Menu,
     X,
-    LogOut
+    LogOut,
+    Loader2,
+    AlertCircle
 } from 'lucide-react';
-import { Logout } from '../servicies/Users'
-import { replace, useNavigate } from "react-router-dom";
-
-
+import { Logout } from '../servicies/Users';
+import { GetUserNextsAppoiments } from '../servicies/Appoiment';
+import { useNavigate } from "react-router-dom";
 
 export default function ClinicaHome() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const [appointments, setAppointments] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [apiError, setApiError] = useState(null);
+
     const navigate = useNavigate();
 
+    useEffect(() => {
+        let isMounted = true;
+
+        async function fetchAppointments() {
+            try {
+                setIsLoading(true);
+                setApiError(null);
+
+                const response = await GetUserNextsAppoiments();
+
+                if (!isMounted) return;
+
+                let data;
+
+                if (response && typeof response.json === 'function') {
+                    data = await response.json();
+                } else {
+                    data = response;
+                }
+
+
+                if (Array.isArray(data)) {
+                    setAppointments(data);
+                } else if (data && Array.isArray(data.data)) {
+                    setAppointments(data.data);
+                } else {
+                    console.warn("O formato final dos dados não é um array válido:", data);
+                    setAppointments([]);
+                }
+            } catch (error) {
+                if (isMounted) {
+                    console.error("Erro ao buscar consultas:", error);
+                    setApiError(error.message || "Não foi possível carregar suas consultas.");
+                }
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
+            }
+        }
+
+        fetchAppointments();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    const statusConfig = {
+        confirmed: { label: 'Confirmada', className: 'bg-green-500/10 text-green-500' },
+        pending: { label: 'Pendente', className: 'bg-amber-500/10 text-amber-500' },
+        cancelled: { label: 'Cancelada', className: 'bg-red-500/10 text-red-500' }
+    };
 
     const sendPrompt = (text) => {
         console.log(`Prompt enviado: ${text}`);
@@ -47,7 +105,7 @@ export default function ClinicaHome() {
 
         try {
             await Logout();
-            navigate('/', { replace: true })
+            navigate('/', { replace: true });
         } catch (error) {
             console.error('Erro ao realizar logout:', error);
         }
@@ -180,38 +238,76 @@ export default function ClinicaHome() {
                     </div>
                 </section>
 
-                <section className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
+                <section className={`p-6 rounded-2xl border transition-colors duration-300 ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
                     }`}>
                     <h2 className={`text-lg font-medium mb-4 flex items-center gap-2 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>
                         <Clock className="w-5 h-5 text-[#A60321]" />
                         Próximas consultas
                     </h2>
 
-                    <div className="divide-y divide-gray-800/10 dark:divide-gray-800">
-                        <div className="py-4 first:pt-0 last:pb-0">
-                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
-                                <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-[#4A2E14]'}`}>Dr. Carlos Oliveira - Cardiologia</span>
-                                <span className="text-xs font-semibold text-[#A60321]">Hoje, 14:30</span>
-                            </div>
-                            <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Consulta de rotina</p>
+                    {isLoading && (
+                        <div className="flex flex-col items-center justify-center py-8 gap-3">
+                            <Loader2 className="w-8 h-8 text-[#A60321] animate-spin" />
+                            <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Carregando suas consultas futuras...</span>
                         </div>
+                    )}
 
-                        <div className="py-4 first:pt-0 last:pb-0">
-                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
-                                <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-[#4A2E14]'}`}>Dra. Ana Silva - Dermatologia</span>
-                                <span className="text-xs font-semibold text-[#A60321]">Amanhã, 10:00</span>
+                    {!isLoading && apiError && (
+                        <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 my-2">
+                            <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                            <div className="flex flex-col gap-1">
+                                <span className="text-sm font-medium text-red-500">Falha ao sincronizar agenda</span>
+                                <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{apiError}</span>
                             </div>
-                            <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Avaliação dermatológica</p>
                         </div>
+                    )}
 
-                        <div className="py-4 first:pt-0 last:pb-0">
-                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
-                                <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-[#4A2E14]'}`}>Dr. Roberto Santos - Ortopedia</span>
-                                <span className="text-xs font-semibold text-[#A60321]">23 Mai, 16:00</span>
-                            </div>
-                            <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Retorno pós-cirúrgico</p>
+                    {!isLoading && !apiError && appointments.length === 0 && (
+                        <div className="text-center py-10">
+                            <Calendar className={`w-10 h-10 mx-auto mb-3 opacity-40 ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`} />
+                            <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-[#4A2E14]'}`}>Você não possui consultas agendadas.</p>
+                            <p className={`text-xs mt-1 ${isDarkMode ? 'text-gray-500' : 'text-[#8C5C32]/70'}`}>Quando precisar, clique em "Agendar consulta" acima.</p>
                         </div>
-                    </div>
+                    )}
+
+                    {!isLoading && !apiError && appointments.length > 0 && (
+                        <div className="divide-y divide-gray-800/10 dark:divide-gray-800">
+                            {appointments.slice(0, 3).map((appointment) => {
+                                const statusInfo = statusConfig[appointment.status] || { label: appointment.status, className: 'bg-gray-500/10 text-gray-500' };
+
+                                return (
+                                    <div key={appointment.id} className="py-5 first:pt-0 last:pb-0 flex flex-col gap-2">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                            <div>
+                                                <h4 className={`text-sm font-semibold tracking-wide ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>
+                                                    {appointment.psychologist?.user?.fullname || "Psicólogo não informado"}
+                                                </h4>
+                                                <p className={`text-xs font-medium mt-0.5 ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>
+                                                    CRP: {appointment.psychologist?.crp || "Não registrado"}
+                                                </p>
+                                            </div>
+                                            <div className="flex items-center gap-2 sm:flex-col sm:items-end shrink-0">
+                                                <span className="text-xs font-bold text-[#A60321]">
+                                                    {appointment.format_date || "Data não disponível"}
+                                                </span>
+                                                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider ${statusInfo.className}`}>
+                                                    {statusInfo.label}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-xs mt-1 ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>
+                                            <span className="font-medium text-[#A60321]/90">
+                                                {appointment.service?.name || "Consulta Geral"}
+                                            </span>
+                                            <span className="opacity-40">•</span>
+                                            <span>Duração: {appointment.service?.duration_minutes || "--"} min</span>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
                 </section>
             </main>
 
