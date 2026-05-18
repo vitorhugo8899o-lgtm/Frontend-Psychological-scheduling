@@ -75,7 +75,66 @@ async function GetAllAppoimentsUser(params) {
 }
 
 
+async function ScheduleAppointment(data) {
+    const payload = {
+        'id_psychologist': data.id_psychologist,
+        'service_id': data.service_id,
+        'date_time': data.date_time
+    }
+
+    try {
+        const response = await api("/api/v1/appoiments", {
+            mthod: "POST",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+        return response
+
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao marcar consulta. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
 
 
+async function RescheduleAppointment(appoiment) {
+    const payload = {
+        'id_appointment': appoiment.id_appointment,
+        'date_new': appoiment.date_new
+    }
 
-export { GetUserNextsAppoiments, SimulationAppoiment, GetAllAppoimentsUser }
+    try {
+        const response = await api("/api/v1/appoiments/rescheduling", {
+            method: "POST",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao remarcar consulta. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+export {
+    GetUserNextsAppoiments,
+    SimulationAppoiment,
+    GetAllAppoimentsUser,
+    ScheduleAppointment,
+    RescheduleAppointment
+}
