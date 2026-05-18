@@ -131,10 +131,37 @@ async function RescheduleAppointment(appoiment) {
 }
 
 
+async function CancelAppoiment(appoiment) {
+    const payload = {
+        'id_appointment': appoiment.id_appointment
+    }
+
+    try {
+        const response = await api("/api/v1/appoiments/cancel", {
+            method: "POST",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao cancelar consulta. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
 export {
     GetUserNextsAppoiments,
     SimulationAppoiment,
     GetAllAppoimentsUser,
     ScheduleAppointment,
-    RescheduleAppointment
+    RescheduleAppointment,
+    CancelAppoiment
 }
