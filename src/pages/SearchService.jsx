@@ -15,7 +15,8 @@ import {
     DollarSign,
     Clock,
     FileText,
-    SlidersHorizontal
+    SlidersHorizontal,
+    Settings
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { SearchService } from '../servicies/Services';
@@ -195,11 +196,38 @@ export default function SearchServices() {
                 </div>
 
                 <nav className="flex-1 py-8 flex flex-col gap-1 overflow-y-auto">
-                    <SidebarButton icon={Home} label="Início" to="/home" />
-                    <SidebarButton icon={CalendarPlus} label="Marcar consulta" onClick={() => handleMenuClick('Quero marcar uma consulta')} />
-                    <SidebarButton icon={Search} label="Busca avançada por serviços" to="/filter-services" isActive />
-                    <SidebarButton icon={ClipboardList} label="Minhas consultas" onClick={() => handleMenuClick('Ver minhas consultas agendadas')} />
-                    <SidebarButton icon={LogOut} label="Sair" onClick={LogoutUser} />
+                    <SidebarButton
+                        icon={Home}
+                        label="Início"
+                        to="/home"
+                    />
+                    <SidebarButton
+                        icon={CalendarPlus}
+                        label="Marcar consulta"
+                        onClick={() => handleMenuClick('Quero marcar uma consulta')}
+                    />
+                    <SidebarButton
+                        icon={Search}
+                        label="Busca avançada por serviços"
+                        to="/filter-services"
+                        isActive
+                    />
+                    <SidebarButton
+                        icon={ClipboardList}
+                        label="Minhas consultas"
+                        onClick={() => handleMenuClick('Ver minhas consultas agendadas')}
+                    />
+                    <SidebarButton
+                        icon={Settings}
+                        label="Configurações de conta."
+                        to='/settings'
+                    />
+
+                    <SidebarButton
+                        icon={LogOut}
+                        label="Sair"
+                        onClick={LogoutUser}
+                    />
                 </nav>
             </aside>
 
