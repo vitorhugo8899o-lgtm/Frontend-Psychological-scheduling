@@ -15,7 +15,8 @@ import {
     X,
     LogOut,
     Loader2,
-    AlertCircle
+    AlertCircle,
+    Settings
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetUserNextsAppoiments } from '../servicies/Appoiment';
@@ -182,6 +183,12 @@ export default function ClinicaHome() {
                     />
 
                     <SidebarButton
+                        icon={Settings}
+                        label="Configurações de conta."
+                        to='/settings'
+                    />
+
+                    <SidebarButton
                         icon={LogOut}
                         label="Sair"
                         onClick={LogoutUser}
@@ -291,7 +298,7 @@ export default function ClinicaHome() {
                                             </div>
                                             <div className="flex items-center gap-2 sm:flex-col sm:items-end shrink-0">
                                                 <span className="text-xs font-bold text-[#A60321]">
-                                                    {appointment.format_date || "Data não disponível"}
+                                                    {appointment.datetime_format || "Data não disponível"}
                                                 </span>
                                                 <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider ${statusInfo.className}`}>
                                                     {statusInfo.label}

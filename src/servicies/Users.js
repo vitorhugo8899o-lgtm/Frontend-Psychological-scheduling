@@ -87,7 +87,7 @@ async function UpdateUserInfo(update_data) {
     }
     try {
         const response = await api("/api/v1/users", {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify(payload),
         });
         return response;
@@ -141,9 +141,6 @@ async function GetUserAppoiment() {
         throw new Error(errorMessage);
     }
 }
-
-
-
 
 
 
