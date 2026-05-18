@@ -53,6 +53,29 @@ async function SimulationAppoiment(data) {
 }
 
 
+async function GetAllAppoimentsUser(params) {
+    try {
+        const response = await api('/api/v1/users/me/appointments', {
+            method: "GET",
+            credentials: 'include'
+        })
+
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao historico. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
 
 
-export { GetUserNextsAppoiments, SimulationAppoiment }
+
+
+
+export { GetUserNextsAppoiments, SimulationAppoiment, GetAllAppoimentsUser }

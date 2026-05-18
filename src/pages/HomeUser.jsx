@@ -179,7 +179,7 @@ export default function ClinicaHome() {
                     <SidebarButton
                         icon={ClipboardList}
                         label="Minhas consultas"
-                        onClick={() => handleMenuClick('Ver minhas consultas agendadas')}
+                        to='/history-appoiment'
                     />
 
                     <SidebarButton
@@ -237,15 +237,17 @@ export default function ClinicaHome() {
                         </div>
                     </Link>
 
-                    <div
-                        onClick={() => sendPrompt('Histórico médico')}
-                        className={`p-6 rounded-2xl border cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#A60321] ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
-                            }`}
-                    >
-                        <FileText className="w-7 h-7 text-[#A60321] mb-4" />
-                        <h3 className={`text-base font-medium mb-1.5 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>Histórico de consultas</h3>
-                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Acesse seus registros de consultas anteriores</p>
-                    </div>
+                    <Link to='/history-appoiment'>
+                        <div
+                            onClick={() => sendPrompt('Histórico médico')}
+                            className={`p-6 rounded-2xl border cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#A60321] ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
+                                }`}
+                        >
+                            <FileText className="w-7 h-7 text-[#A60321] mb-4" />
+                            <h3 className={`text-base font-medium mb-1.5 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>Histórico de consultas</h3>
+                            <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Acesse seus registros de consultas anteriores</p>
+                        </div>
+                    </Link>
                 </section>
 
                 <section className={`p-6 rounded-2xl border transition-colors duration-300 ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
