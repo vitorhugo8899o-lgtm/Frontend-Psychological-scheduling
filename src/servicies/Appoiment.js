@@ -204,5 +204,6 @@ export {
     GetAllAppoimentsUser,
     CreateAppointment,
     RescheduleAppointment,
-    CancelAppoiment
+    CancelAppoiment,
+    GetAppoimentOpen
 }
