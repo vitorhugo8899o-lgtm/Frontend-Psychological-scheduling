@@ -13,6 +13,7 @@ import AccountSettings from './pages/SettingsAccount.jsx';
 import SearchServices from './pages/SearchService.jsx';
 import AppointmentHistory from './pages/AppointmentHistory.jsx';
 import ScheduleAppoiment from './pages/ScheduleAppointment.jsx';
+import AppointmentsInProgress from './pages/AppointmentsInProgress.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -60,6 +61,10 @@ const routers = createBrowserRouter([
       {
         path: "/appoiment",
         element: <ScheduleAppoiment />
+      },
+      {
+        path: "/appoiments/in-progress",
+        element: <AppointmentsInProgress />
       }
     ]
   }

@@ -233,12 +233,41 @@ export default function ScheduleAppoiment() {
                 </div>
 
                 <nav className="flex-1 py-8 flex flex-col gap-1 overflow-y-auto">
-                    <SidebarButton icon={Home} label="Início" to="/home" />
-                    <SidebarButton icon={CalendarPlus} label="Marcar consulta" to="/schedule" isActive />
-                    <SidebarButton icon={Search} label="Busca avançada por serviços" to="/filter-services" />
-                    <SidebarButton icon={ClipboardList} label="Minhas consultas" to='/history-appoiment' />
-                    <SidebarButton icon={Settings} label="Configurações de conta." to='/settings' />
-                    <SidebarButton icon={LogOut} label="Sair" onClick={LogoutUser} />
+                    <SidebarButton
+                        icon={Home}
+                        label="Início"
+                        to="/home" />
+
+                    <SidebarButton
+                        icon={CalendarPlus}
+                        label="Marcar consulta"
+                        to="/schedule" isActive />
+
+                    <SidebarButton
+                        icon={FolderOpen}
+                        label="Consultas em progresso"
+                        to="/appoiments/in-progress"
+                    />
+                    <SidebarButton
+                        icon={Search}
+                        label="Busca avançada por serviços"
+                        to="/filter-services"
+                    />
+                    <SidebarButton
+                        icon={ClipboardList}
+                        label="Minhas consultas"
+                        to='/history-appoiment'
+                    />
+                    <SidebarButton
+                        icon={Settings}
+                        label="Configurações de conta."
+                        to='/settings'
+                    />
+                    <SidebarButton
+                        icon={LogOut}
+                        label="Sair"
+                        onClick={LogoutUser}
+                    />
                 </nav>
             </aside>
 
