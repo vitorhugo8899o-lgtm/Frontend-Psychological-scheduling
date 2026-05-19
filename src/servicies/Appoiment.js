@@ -174,6 +174,30 @@ async function CancelAppoiment(appoiment) {
     }
 }
 
+
+async function GetAppoimentOpen() {
+    try {
+        const response = await api('/api/v1/users/me/open-appoiments', {
+            method: "GET",
+            credentials: 'include'
+        })
+
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao buscar consultas. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+
 export {
     GetUserNextsAppoiments,
     SimulationAppoiment,
