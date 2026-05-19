@@ -25,7 +25,4 @@ async function GetAllPsychs(params) {
 
 
 
-
-
-
 export { GetAllPsychs }

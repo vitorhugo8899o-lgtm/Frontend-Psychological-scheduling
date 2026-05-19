@@ -164,7 +164,7 @@ export default function AccountSettings() {
                     <SidebarButton
                         icon={CalendarPlus}
                         label="Marcar consulta"
-                        onClick={() => handleMenuClick('Quero marcar uma consulta')}
+                        to='/appoiment'
                     />
                     <SidebarButton
                         icon={Search}
@@ -174,7 +174,7 @@ export default function AccountSettings() {
                     <SidebarButton
                         icon={ClipboardList}
                         label="Minhas consultas"
-                        onClick={() => handleMenuClick('Ver minhas consultas agendadas')}
+                        to='/history-appoiment'
                     />
                     <SidebarButton
                         icon={Settings}

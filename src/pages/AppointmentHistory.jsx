@@ -182,13 +182,12 @@ export default function AppointmentHistory() {
                     <SidebarButton
                         icon={CalendarPlus}
                         label="Marcar consulta"
-                        to="/simulation"
+                        to="/appoiment"
                     />
 
                     <SidebarButton
                         icon={ClipboardList}
                         label="Minhas consultas"
-                        to="/appointment-history"
                         isActive
                     />
 

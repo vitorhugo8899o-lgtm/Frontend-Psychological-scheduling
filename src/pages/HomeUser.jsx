@@ -167,7 +167,7 @@ export default function ClinicaHome() {
                     <SidebarButton
                         icon={CalendarPlus}
                         label="Marcar consulta"
-                        onClick={() => handleMenuClick('Quero marcar uma consulta')}
+                        to='/appoiment'
                     />
 
                     <SidebarButton
