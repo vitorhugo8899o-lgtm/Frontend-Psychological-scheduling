@@ -223,7 +223,7 @@ export default function Simulation() {
                     <SidebarButton
                         icon={CalendarPlus}
                         label="Marcar consulta"
-                        onClick={() => handleMenuClick('Quero marcar uma consulta')}
+                        to='/appoiment'
                     />
 
                     <SidebarButton
@@ -235,7 +235,7 @@ export default function Simulation() {
                     <SidebarButton
                         icon={ClipboardList}
                         label="Minhas consultas"
-                        onClick={() => handleMenuClick('Ver minhas consultas agendadas')}
+                        to='/history-appoiment'
                     />
 
                     <SidebarButton

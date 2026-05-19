@@ -75,30 +75,47 @@ async function GetAllAppoimentsUser(params) {
 }
 
 
-async function ScheduleAppointment(data) {
+async function CreateAppointment(data) {
     const payload = {
-        'id_psychologist': data.id_psychologist,
+        'id_psychologist': data.psychologist_id,
         'service_id': data.service_id,
         'date_time': data.date_time
     }
 
     try {
-        const response = await api("/api/v1/appoiments", {
-            mthod: "POST",
+        const response = await api("/api/v1/appointments", {
+            method: "POST",
             body: JSON.stringify(payload),
             credentials: 'include'
         })
         return response
 
     } catch (error) {
-        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+        let errorMessage =
+            "Erro de conexão com o servidor. Tente novamente.";
 
         if (error.response) {
+
             const status = error.response.status;
             const detail = error.response.data?.detail;
 
-            errorMessage = `Erro ao marcar consulta. Status: ${status}, detalhe: ${detail}`
+            if (Array.isArray(detail)) {
+
+                errorMessage = detail
+                    .map(err => err.msg)
+                    .join(" | ");
+
+            } else if (typeof detail === 'string') {
+
+                errorMessage = detail;
+
+            } else {
+
+                errorMessage =
+                    `Erro ao marcar consulta. Status: ${status}`;
+            }
         }
+
         throw new Error(errorMessage);
     }
 }
@@ -161,7 +178,7 @@ export {
     GetUserNextsAppoiments,
     SimulationAppoiment,
     GetAllAppoimentsUser,
-    ScheduleAppointment,
+    CreateAppointment,
     RescheduleAppointment,
     CancelAppoiment
 }

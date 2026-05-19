@@ -12,6 +12,7 @@ import Simulation from './pages/ConsultationSimulation.jsx';
 import AccountSettings from './pages/SettingsAccount.jsx';
 import SearchServices from './pages/SearchService.jsx';
 import AppointmentHistory from './pages/AppointmentHistory.jsx';
+import ScheduleAppoiment from './pages/ScheduleAppointment.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -56,6 +57,10 @@ const routers = createBrowserRouter([
         path: "/history-appoiment",
         element: <AppointmentHistory />
       },
+      {
+        path: "/appoiment",
+        element: <ScheduleAppoiment />
+      }
     ]
   }
 ])
