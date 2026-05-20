@@ -143,5 +143,50 @@ async function GetUserAppoiment() {
 }
 
 
+async function GetAllUsers() {
+    try {
+        const response = await api('/api/v1/users', {
+            method: "GET",
+            credentials: 'include'
+        })
 
-export { CreateUser, Login, Logout, UpdateUserInfo, DesactiveAccount }
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao buscar usuários. Status: ${status}, detalhe: ${detail}`
+        }
+
+        throw new Error(errorMessage);
+    }
+}
+
+
+async function GetUser(id_user) {
+    try {
+        const response = await api(`/api/v1/users/${id_user.toString()}`, {
+            method: "GET",
+            credentials: "include",
+        });
+
+        return response;
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro ao buscar usuários. Status: ${status}, detalhe: ${detail}`;
+        }
+
+        throw new Error(errorMessage);
+    }
+}
+
+
+export { CreateUser, Login, Logout, UpdateUserInfo, DesactiveAccount, GetAllUsers, GetUser }

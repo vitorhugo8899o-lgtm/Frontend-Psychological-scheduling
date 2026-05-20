@@ -18,7 +18,10 @@ import {
     AlertCircle,
     Settings,
     FolderOpen,
-    BotMessageSquare
+    BotMessageSquare,
+    ClipboardListIcon,
+    UserLock,
+    Brain
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { useNavigate, Link } from "react-router-dom";
@@ -107,19 +110,19 @@ export default function HomeAdm() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={ClipboardListIcon}
                         label="Lista de usuário registrados."
                         to='/users-list'
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={UserLock}
                         label="Busque um usuário em especifico."
                         to='/user-info'
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={Brain}
                         label="Adicionar psicólogo no sistema."
                         to='/add-psych'
                     />

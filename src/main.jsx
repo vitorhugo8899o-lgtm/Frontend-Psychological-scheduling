@@ -17,6 +17,9 @@ import AppointmentsInProgress from './pages/AppointmentsInProgress.jsx';
 import PaymentSuccessPage from './pages/PaymentSucess.jsx';
 import ChatMira from './pages/ChatMira.jsx';
 import HomeAdm from './pages/HomeAdm.jsx';
+import UserList from './pages/UserLIst.jsx';
+import UserInfo from './pages/UserInfo.jsx';
+import AddPsych from './pages/AddPsych.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -80,6 +83,18 @@ const routers = createBrowserRouter([
       {
         path: "/home-adm",
         element: <HomeAdm />
+      },
+      {
+        path: "/users-list",
+        element: <UserList />
+      },
+      {
+        path: "/user-info",
+        element: <UserInfo />
+      },
+      {
+        path: "/add-psych",
+        element: <AddPsych />
       }
     ]
   }

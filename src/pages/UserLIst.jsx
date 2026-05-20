@@ -8,26 +8,28 @@ import {
     LogOut,
     Menu,
     X,
-    Loader2,
     AlertCircle,
     Calendar,
-    Clock,
     Sun,
     Moon,
-    FileText,
-    FolderOpen
+    Users,
+    Mail,
+    Shield,
+    ClipboardListIcon,
+    UserLock,
+    Brain
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
-import { GetAllAppoimentsUser } from '../servicies/Appoiment';
+import { GetAllUsers } from '../servicies/Users';
 import { useNavigate } from "react-router-dom";
 import SidebarButton from '../componentes/SidebarButton';
 import { useTheme } from '../context/ThemeContext';
 
-export default function AppointmentHistory() {
+export default function UserList() {
     const { isDarkMode, toggleTheme } = useTheme();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [appointments, setAppointments] = useState([]);
+    const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [apiError, setApiError] = useState(null);
 
@@ -36,17 +38,16 @@ export default function AppointmentHistory() {
     useEffect(() => {
         let isMounted = true;
 
-        async function fetchAllAppointments() {
+        async function fetchAllUsers() {
             try {
                 setIsLoading(true);
                 setApiError(null);
 
-                const response = await GetAllAppoimentsUser();
+                const response = await GetAllUsers();
 
                 if (!isMounted) return;
 
                 let data;
-
                 if (response && typeof response.json === 'function') {
                     data = await response.json();
                 } else {
@@ -54,17 +55,17 @@ export default function AppointmentHistory() {
                 }
 
                 if (Array.isArray(data)) {
-                    setAppointments(data);
+                    setUsers(data);
                 } else if (data && Array.isArray(data.data)) {
-                    setAppointments(data.data);
+                    setUsers(data.data);
                 } else {
                     console.warn("O formato final dos dados não é um array válido:", data);
-                    setAppointments([]);
+                    setUsers([]);
                 }
             } catch (error) {
                 if (isMounted) {
-                    console.error("Erro ao buscar histórico de consultas:", error);
-                    setApiError(error.message || "Não foi possível carregar o histórico de consultas.");
+                    console.error("Erro ao buscar lista de usuários:", error);
+                    setApiError(error.message || "Não foi possível carregar a lista de usuários.");
                 }
             } finally {
                 if (isMounted) {
@@ -73,24 +74,24 @@ export default function AppointmentHistory() {
             }
         }
 
-        fetchAllAppointments();
+        fetchAllUsers();
 
         return () => {
             isMounted = false;
         };
     }, []);
 
-    const statusConfig = {
-        pending: {
-            label: 'Pendente',
-            className: 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20'
-        },
-        canceled: {
-            label: 'Cancelada',
+    const roleConfig = {
+        admin: {
+            label: 'Administrador',
             className: 'bg-red-500/10 text-red-500 border border-red-500/20'
         },
-        confirmed: {
-            label: 'Confirmada',
+        psychologist: {
+            label: 'Psicólogo',
+            className: 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/20'
+        },
+        patient: {
+            label: 'Paciente',
             className: 'bg-green-500/10 text-green-500 border border-green-500/20'
         },
     };
@@ -109,6 +110,16 @@ export default function AppointmentHistory() {
             navigate('/', { replace: true });
         } catch (error) {
             console.error('Erro ao realizar logout:', error);
+        }
+    };
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "Data não disponível";
+        try {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pt-BR');
+        } catch (e) {
+            return dateString;
         }
     };
 
@@ -181,26 +192,39 @@ export default function AppointmentHistory() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
-                        label="Marcar consulta"
-                        to="/appoiment"
-                    />
-
-                    <SidebarButton
-                        icon={FolderOpen}
-                        label="Consultas em progresso"
-                        to="/appoiments/in-progress"
-                    />
-
-                    <SidebarButton
-                        icon={ClipboardList}
-                        label="Minhas consultas"
+                        icon={ClipboardListIcon}
+                        label="Lista de usuário registrados."
+                        to='/users-list'
                         isActive
                     />
 
                     <SidebarButton
+                        icon={UserLock}
+                        label="Busque um usuário em especifico."
+                        to='/user-info'
+                    />
+
+                    <SidebarButton
+                        icon={Brain}
+                        label="Adicionar psicólogo no sistema."
+                        to='/add-psych'
+                    />
+
+                    <SidebarButton
+                        icon={CalendarPlus}
+                        label="Adicionar um serviço."
+                        to='/create-service'
+                    />
+
+                    <SidebarButton
+                        icon={CalendarPlus}
+                        label="Relátorio Financeiro."
+                        to='/financial-report'
+                    />
+
+                    <SidebarButton
                         icon={Settings}
-                        label="Configurações de conta"
+                        label="Configurações de conta."
                         to='/settings'
                     />
 
@@ -215,15 +239,15 @@ export default function AppointmentHistory() {
             <main className="flex-1 p-6 md:p-10 lg:p-12 max-w-7xl mx-auto w-full overflow-y-auto">
                 <header className="mb-8 md:mb-10">
                     <div className="flex items-center gap-3 mb-2">
-                        <FileText className="w-7 h-7 md:w-8 md:h-8 text-[#A60321]" />
+                        <Users className="w-7 h-7 md:w-8 md:h-8 text-[#A60321]" />
                         <h1 className={`text-2xl md:text-3xl font-medium ${isDarkMode ? 'text-white' : 'text-[#4A2E14]'
                             }`}>
-                            Histórico de Consultas
+                            Lista de Usuários
                         </h1>
                     </div>
                     <p className={`text-sm md:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'
                         }`}>
-                        Acompanhe todas as suas consultas realizadas e agendadas.
+                        Acompanhe todos os usuários registrados no sistema.
                     </p>
                 </header>
 
@@ -240,7 +264,7 @@ export default function AppointmentHistory() {
                         <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                         <div className="flex flex-col gap-1">
                             <span className="text-sm font-medium text-red-500">
-                                Falha ao carregar histórico
+                                Falha ao carregar lista de usuários
                             </span>
                             <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                                 }`}>
@@ -250,33 +274,29 @@ export default function AppointmentHistory() {
                     </div>
                 )}
 
-                {!isLoading && !apiError && appointments.length === 0 && (
+                {!isLoading && !apiError && users.length === 0 && (
                     <div className={`text-center py-16 rounded-2xl border ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
                         }`}>
-                        <Calendar className={`w-16 h-16 mx-auto mb-4 opacity-30 ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'
+                        <Users className={`w-16 h-16 mx-auto mb-4 opacity-30 ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'
                             }`} />
                         <p className={`text-base font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-[#4A2E14]'
                             }`}>
-                            Você ainda não possui consultas registradas.
-                        </p>
-                        <p className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-[#8C5C32]/70'
-                            }`}>
-                            Suas consultas futuras e passadas aparecerão aqui.
+                            Nenhum usuário cadastrado.
                         </p>
                     </div>
                 )}
 
-                {!isLoading && !apiError && appointments.length > 0 && (
+                {!isLoading && !apiError && users.length > 0 && (
                     <div className="space-y-5">
-                        {appointments.map((appointment, index) => {
-                            const statusInfo = statusConfig[appointment.status] || {
-                                label: appointment.status,
+                        {users.map((user, index) => {
+                            const roleInfo = roleConfig[user.role?.toLowerCase()] || {
+                                label: user.role || 'Usuário',
                                 className: 'bg-gray-500/10 text-gray-500 border border-gray-500/20'
                             };
 
                             return (
                                 <div
-                                    key={appointment.id}
+                                    key={user.id}
                                     className={`p-6 rounded-2xl border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl cursor-pointer group relative overflow-hidden
                                         ${isDarkMode
                                             ? 'bg-[#131c2e] border-gray-800 hover:border-[#A60321]/50'
@@ -289,8 +309,7 @@ export default function AppointmentHistory() {
                                     }}
                                 >
                                     <Heart
-                                        className={`absolute top-4 right-4 w-8 h-8 opacity-5 transition-all duration-300 group-hover:opacity-10 group-hover:scale-110 ${isDarkMode ? 'text-[#A60321]' : 'text-[#A60321]'
-                                            }`}
+                                        className={`absolute top-4 right-4 w-8 h-8 opacity-5 transition-all duration-300 group-hover:opacity-10 group-hover:scale-110 text-[#A60321]`}
                                         fill="currentColor"
                                     />
 
@@ -299,27 +318,25 @@ export default function AppointmentHistory() {
                                             <div>
                                                 <h3 className={`text-lg font-semibold tracking-wide ${isDarkMode ? 'text-gray-100' : 'text-[#4A2E14]'
                                                     }`}>
-                                                    {appointment.service?.name || "Consulta Geral"}
+                                                    {user.fullname || "Nome não informado"}
                                                 </h3>
                                             </div>
 
-                                            <div className="space-y-1">
-                                                <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-[#4A2E14]'
-                                                    }`}>
-                                                    {appointment.psychologist?.user?.fullname || "Psicólogo não informado"}
-                                                </p>
-                                                <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'
-                                                    }`}>
-                                                    {appointment.psychologist?.crp || "CRP não registrado"}
-                                                </p>
-                                            </div>
-
-                                            <div className="flex items-center gap-2">
-                                                <Clock className="w-4 h-4 text-[#A60321]" />
-                                                <span className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'
-                                                    }`}>
-                                                    Duração: {appointment.service?.duration_minutes || "--"} minutos
-                                                </span>
+                                            <div className="space-y-1.5">
+                                                <div className="flex items-center gap-2">
+                                                    <Mail className="w-4 h-4 text-[#A60321] opacity-70" />
+                                                    <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-[#4A2E14]'
+                                                        }`}>
+                                                        {user.email}
+                                                    </p>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <Shield className="w-4 h-4 text-[#A60321] opacity-70" />
+                                                    <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'
+                                                        }`}>
+                                                        ID de Registro: {user.id}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -328,12 +345,12 @@ export default function AppointmentHistory() {
                                                 <Calendar className="w-4 h-4 text-[#A60321]" />
                                                 <span className={`text-sm font-bold ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'
                                                     }`}>
-                                                    {appointment.datetime_format || "Data não disponível"}
+                                                    Criado em: {formatDate(user.created_at)}
                                                 </span>
                                             </div>
 
-                                            <span className={`text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-wider ${statusInfo.className}`}>
-                                                {statusInfo.label}
+                                            <span className={`text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-wider ${roleInfo.className}`}>
+                                                {roleInfo.label}
                                             </span>
                                         </div>
                                     </div>
