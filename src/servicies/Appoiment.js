@@ -125,50 +125,44 @@ async function RescheduleAppointment(appoiment) {
     const payload = {
         'id_appointment': appoiment.id_appointment,
         'date_new': appoiment.date_new
-    }
-
+    };
     try {
-        const response = await api("/api/v1/appoiments/rescheduling", {
+        const response = await api("/api/v1/appointments/rescheduling", {
             method: "POST",
             body: JSON.stringify(payload),
             credentials: 'include'
-        })
-
+        });
+        return response;
     } catch (error) {
         let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
-
         if (error.response) {
             const status = error.response.status;
             const detail = error.response.data?.detail;
-
-            errorMessage = `Erro ao remarcar consulta. Status: ${status}, detalhe: ${detail}`
+            errorMessage = `Erro ao remarcar consulta. Status: ${status}, detalhe: ${detail}`;
         }
         throw new Error(errorMessage);
     }
 }
 
 
+
 async function CancelAppoiment(appoiment) {
     const payload = {
         'id_appointment': appoiment.id_appointment
-    }
-
+    };
     try {
-        const response = await api("/api/v1/appoiments/cancel", {
+        const response = await api("/api/v1/appointments/cancel", {
             method: "POST",
             body: JSON.stringify(payload),
             credentials: 'include'
-        })
-
-        return response
+        });
+        return response;
     } catch (error) {
         let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
-
         if (error.response) {
             const status = error.response.status;
             const detail = error.response.data?.detail;
-
-            errorMessage = `Erro ao cancelar consulta. Status: ${status}, detalhe: ${detail}`
+            errorMessage = `Erro ao cancelar consulta. Status: ${status}, detalhe: ${detail}`;
         }
         throw new Error(errorMessage);
     }
@@ -180,17 +174,14 @@ async function GetAppoimentOpen() {
         const response = await api('/api/v1/users/me/open-appoiments', {
             method: "GET",
             credentials: 'include'
-        })
-
-        return response
+        });
+        return response;
     } catch (error) {
         let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
-
         if (error.response) {
             const status = error.response.status;
             const detail = error.response.data?.detail;
-
-            errorMessage = `Erro ao buscar consultas. Status: ${status}, detalhe: ${detail}`
+            errorMessage = `Erro ao buscar consultas. Status: ${status}, detalhe: ${detail}`;
         }
         throw new Error(errorMessage);
     }

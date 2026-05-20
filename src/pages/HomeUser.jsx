@@ -16,7 +16,8 @@ import {
     LogOut,
     Loader2,
     AlertCircle,
-    Settings
+    Settings,
+    FolderOpen
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetUserNextsAppoiments } from '../servicies/Appoiment';
@@ -168,6 +169,12 @@ export default function ClinicaHome() {
                         icon={CalendarPlus}
                         label="Marcar consulta"
                         to='/appoiment'
+                    />
+
+                    <SidebarButton
+                        icon={FolderOpen}
+                        label="Consultas em progresso"
+                        to="/appoiments/in-progress"
                     />
 
                     <SidebarButton
