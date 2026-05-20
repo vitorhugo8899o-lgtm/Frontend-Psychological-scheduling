@@ -17,7 +17,8 @@ import {
     Loader2,
     AlertCircle,
     Settings,
-    FolderOpen
+    FolderOpen,
+    BotMessageSquare
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetUserNextsAppoiments } from '../servicies/Appoiment';
@@ -246,13 +247,23 @@ export default function ClinicaHome() {
 
                     <Link to='/history-appoiment'>
                         <div
-                            onClick={() => sendPrompt('Histórico médico')}
                             className={`p-6 rounded-2xl border cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#A60321] ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
                                 }`}
                         >
                             <FileText className="w-7 h-7 text-[#A60321] mb-4" />
                             <h3 className={`text-base font-medium mb-1.5 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>Histórico de consultas</h3>
                             <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Acesse seus registros de consultas anteriores</p>
+                        </div>
+                    </Link>
+
+                    <Link to='/chat-mira'>
+                        <div
+                            className={`p-6 rounded-2xl border cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#A60321] ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
+                                }`}
+                        >
+                            <BotMessageSquare className="w-7 h-7 text-[#A60321] mb-4" />
+                            <h3 className={`text-base font-medium mb-1.5 ${isDarkMode ? 'text-gray-200' : 'text-[#4A2E14]'}`}>Chatbot Mira</h3>
+                            <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>Tire suas dúvidas com o agente de IA da clínica Equilibrio Mental</p>
                         </div>
                     </Link>
                 </section>
