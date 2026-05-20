@@ -18,6 +18,7 @@ import PaymentSuccessPage from './pages/PaymentSucess.jsx';
 import ChatMira from './pages/ChatMira.jsx';
 import HomeAdm from './pages/HomeAdm.jsx';
 import UserList from './pages/UserLIst.jsx';
+import UserInfo from './pages/UserInfo.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -85,6 +86,10 @@ const routers = createBrowserRouter([
       {
         path: "/users-list",
         element: <UserList />
+      },
+      {
+        path: "/user-info",
+        element: <UserInfo />
       }
     ]
   }

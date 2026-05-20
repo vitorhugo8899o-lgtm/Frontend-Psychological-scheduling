@@ -19,7 +19,8 @@ import {
     Settings,
     FolderOpen,
     BotMessageSquare,
-    ClipboardListIcon
+    ClipboardListIcon,
+    UserLock
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { useNavigate, Link } from "react-router-dom";
@@ -114,7 +115,7 @@ export default function HomeAdm() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={UserLock}
                         label="Busque um usuário em especifico."
                         to='/user-info'
                     />

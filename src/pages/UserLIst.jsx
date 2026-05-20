@@ -15,7 +15,8 @@ import {
     Users,
     Mail,
     Shield,
-    ClipboardListIcon
+    ClipboardListIcon,
+    UserLock
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetAllUsers } from '../servicies/Users';
@@ -197,7 +198,7 @@ export default function UserList() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={UserLock}
                         label="Busque um usuário em especifico."
                         to='/user-info'
                     />
