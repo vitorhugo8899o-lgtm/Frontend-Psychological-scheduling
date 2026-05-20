@@ -18,7 +18,8 @@ import {
     AlertCircle,
     Settings,
     FolderOpen,
-    BotMessageSquare
+    BotMessageSquare,
+    ClipboardListIcon
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { useNavigate, Link } from "react-router-dom";
@@ -107,7 +108,7 @@ export default function HomeAdm() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={ClipboardListIcon}
                         label="Lista de usuário registrados."
                         to='/users-list'
                     />
