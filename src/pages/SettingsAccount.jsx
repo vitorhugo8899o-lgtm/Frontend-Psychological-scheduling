@@ -14,7 +14,8 @@ import {
     CalendarPlus,
     Search,
     ClipboardList,
-    LogOut
+    LogOut,
+    FolderOpen
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { UpdateUserInfo, DesactiveAccount, Logout } from '../servicies/Users';
@@ -161,6 +162,13 @@ export default function AccountSettings() {
                         label="Início"
                         to="/home"
                     />
+
+                    <SidebarButton
+                        icon={FolderOpen}
+                        label="Consultas em progresso"
+                        to="/appoiments/in-progress"
+                    />
+
                     <SidebarButton
                         icon={CalendarPlus}
                         label="Marcar consulta"

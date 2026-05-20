@@ -14,7 +14,8 @@ import {
     Clock,
     Sun,
     Moon,
-    FileText
+    FileText,
+    FolderOpen
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetAllAppoimentsUser } from '../servicies/Appoiment';
@@ -183,6 +184,12 @@ export default function AppointmentHistory() {
                         icon={CalendarPlus}
                         label="Marcar consulta"
                         to="/appoiment"
+                    />
+
+                    <SidebarButton
+                        icon={FolderOpen}
+                        label="Consultas em progresso"
+                        to="/appoiments/in-progress"
                     />
 
                     <SidebarButton
