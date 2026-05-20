@@ -20,7 +20,8 @@ import {
     FolderOpen,
     BotMessageSquare,
     ClipboardListIcon,
-    UserLock
+    UserLock,
+    Brain
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { useNavigate, Link } from "react-router-dom";
@@ -121,7 +122,7 @@ export default function HomeAdm() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={Brain}
                         label="Adicionar psicólogo no sistema."
                         to='/add-psych'
                     />

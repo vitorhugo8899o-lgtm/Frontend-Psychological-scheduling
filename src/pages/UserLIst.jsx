@@ -16,7 +16,8 @@ import {
     Mail,
     Shield,
     ClipboardListIcon,
-    UserLock
+    UserLock,
+    Brain
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetAllUsers } from '../servicies/Users';
@@ -204,7 +205,7 @@ export default function UserList() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={Brain}
                         label="Adicionar psicólogo no sistema."
                         to='/add-psych'
                     />
