@@ -38,7 +38,7 @@ async function Login(data) {
             body: formBody,
             credentials: 'include'
         });
-        return response;
+        return response.json();
     } catch (error) {
         let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
 

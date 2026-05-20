@@ -33,10 +33,19 @@ const AdminLoginPage = () => {
         setIsLoading(true);
         try {
             const response = await Login(formData);
-            if (response.user.role != 'adm') {
-                setErrorMessage("O usuário não é um adiministrador")
+            const userRole = response?.user?.role;
+
+            if (!userRole) {
+                setErrorMessage("Erro ao processar dados de autenticação.");
                 return;
             }
+
+            if (userRole !== 'adm') {
+                setErrorMessage("O usuário não é um administrador.");
+                return;
+            }
+
+            navigate("/home-adm", { replace: true });
         } catch (error) {
             setErrorMessage(error.message || "Acesso negado.");
         } finally {
