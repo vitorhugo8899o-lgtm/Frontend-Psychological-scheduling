@@ -16,6 +16,7 @@ import ScheduleAppoiment from './pages/ScheduleAppointment.jsx';
 import AppointmentsInProgress from './pages/AppointmentsInProgress.jsx';
 import PaymentSuccessPage from './pages/PaymentSucess.jsx';
 import ChatMira from './pages/ChatMira.jsx';
+import HomeAdm from './pages/HomeAdm.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -75,6 +76,10 @@ const routers = createBrowserRouter([
       {
         path: "/chat-mira",
         element: <ChatMira />
+      },
+      {
+        path: "/home-adm",
+        element: <HomeAdm />
       }
     ]
   }
