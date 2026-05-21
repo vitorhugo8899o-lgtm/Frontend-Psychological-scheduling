@@ -21,7 +21,8 @@ import {
     BotMessageSquare,
     ClipboardListIcon,
     UserLock,
-    Brain
+    Brain,
+    Banknote
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { useNavigate, Link } from "react-router-dom";
@@ -134,7 +135,7 @@ export default function HomeAdm() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={Banknote}
                         label="Relátorio Financeiro."
                         to='/financial-report'
                     />

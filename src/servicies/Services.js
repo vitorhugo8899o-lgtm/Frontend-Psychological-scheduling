@@ -86,4 +86,33 @@ async function CreateService(data_service) {
     }
 }
 
-export { GetAllServices, SearchService, CreateService }
+
+async function GetFinancialReport(data) {
+    const payload = {
+        'start_date': data.start_date,
+        'end_date': data.end_date
+    }
+
+    try {
+        const response = await api('/api/v1/financial-report', {
+            method: "POST",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+export { GetAllServices, SearchService, CreateService, GetFinancialReport }
