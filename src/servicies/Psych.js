@@ -150,7 +150,32 @@ async function DeleteAvaliability(data_avaibility) {
 }
 
 
+async function MetricsCountAppoiments(date) {
+    const payload = {
+        'start_date': date.start_date,
+        'end_date': date.end_date
+    }
 
+    try {
+        const response = await api('/api/v1/psych/me/stats/appoinment-count', {
+            method: "POST",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
 
 
 
@@ -162,5 +187,6 @@ export {
     GetNextsPsychAppoiments,
     GetHistoryAppoiment,
     CreateAvaibility,
-    DeleteAvaliability
+    DeleteAvaliability,
+    MetricsCountAppoiments
 }
