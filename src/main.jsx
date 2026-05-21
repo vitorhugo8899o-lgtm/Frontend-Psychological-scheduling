@@ -22,6 +22,7 @@ import UserInfo from './pages/UserInfo.jsx';
 import AddPsych from './pages/AddPsych.jsx';
 import CreateServicePage from './pages/CreateService.jsx';
 import FinancialReport from './pages/FinancialReport.jsx';
+import HomePsych from './pages/HomePsych.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -105,6 +106,10 @@ const routers = createBrowserRouter([
       {
         path: "/financial-report",
         element: <FinancialReport />
+      },
+      {
+        path: "/home-psych",
+        element: <HomePsych />
       }
     ]
   }

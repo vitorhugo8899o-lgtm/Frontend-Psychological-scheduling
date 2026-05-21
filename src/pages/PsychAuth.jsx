@@ -33,11 +33,19 @@ const PsychLoginPage = () => {
         setIsLoading(true);
         try {
             const response = await Login(formData);
+            const userRole = response?.user?.role;
 
-            if (response.user.role != 'psychologist') {
-                setErrorMessage("O usuário não é um psicólogo")
+            if (!userRole) {
+                setErrorMessage("Erro ao processar dados de autenticação.");
                 return;
             }
+
+            if (userRole !== 'psychologist') {
+                setErrorMessage("O usuário não é um psicólogo.");
+                return;
+            }
+
+            navigate("/home-psych", { replace: true });
         } catch (error) {
             setErrorMessage(error.message || "Acesso negado.");
         } finally {
