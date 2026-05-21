@@ -131,7 +131,7 @@ async function DeleteAvaliability(data_avaibility) {
     }
 
     try {
-        const response = await api('/api/v1/psych/me/avaibility', {
+        const response = await api('/api/v1/psych/me/availability', {
             method: "DELETE",
             body: JSON.stringify(payload),
             credentials: 'include'

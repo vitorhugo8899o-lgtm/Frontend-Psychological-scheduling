@@ -17,10 +17,11 @@ import {
     Brain,
     BookMarked,
     ClipboardListIcon,
-    CalendarDays
+    CalendarDays,
+    Trash2
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
-import { GetAvaliabilitys } from '../servicies/Psych';
+import { GetAvaliabilitys, DeleteAvaliability } from '../servicies/Psych';
 import { useNavigate } from "react-router-dom";
 import SidebarButton from '../componentes/SidebarButton';
 import { useTheme } from '../context/ThemeContext';
@@ -86,6 +87,49 @@ export default function AvailabilityList() {
             isMounted = false;
         };
     }, []);
+
+
+    function formatTimeToTimezone(timeStr) {
+        if (!timeStr) return "";
+
+        const baseTime = timeStr.split(':').length === 2 ? `${timeStr}:00` : timeStr;
+
+        const offsetMinutes = new Date().getTimezoneOffset();
+
+        const sign = offsetMinutes > 0 ? "-" : "+";
+        const absMinutes = Math.abs(offsetMinutes);
+        const hours = String(Math.floor(absMinutes / 60)).padStart(2, '0');
+        const mins = String(absMinutes % 60).padStart(2, '0');
+
+        return `${baseTime}${sign}${hours}:${mins}`;
+    }
+
+
+
+    async function AvailabilityDelete(avail) {
+        const confirmDelete = window.confirm('Deseja realmente excluir este horário da sua agenda?');
+        if (!confirmDelete) return;
+
+        try {
+            const payload = {
+                'days_of_the_week': avail.day_of_the_week,
+                'start_time': formatTimeToTimezone(avail.start_time),
+                'end_time': formatTimeToTimezone(avail.end_time)
+            };
+
+            await DeleteAvaliability(payload);
+
+            setAvailabilities(prev => prev.filter(item =>
+                !(item.day_of_the_week === avail.day_of_the_week &&
+                    item.start_time === avail.start_time &&
+                    item.end_time === avail.end_time)
+            ));
+
+        } catch (error) {
+            console.error("Erro ao deletar disponibilidade:", error);
+            alert("Não foi possível excluir o horário. Verifique o console ou tente novamente.");
+        }
+    }
 
     const LogoutUser = async (e) => {
         e.preventDefault();
@@ -279,7 +323,7 @@ export default function AvailabilityList() {
                         {availabilities.map((avail, index) => {
                             return (
                                 <div
-                                    key={`${avail.day_of_the_week}-${index}`}
+                                    key={`${avail.day_of_the_week}-${avail.start_time}-${index}`}
                                     className={`p-6 rounded-2xl border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl cursor-default group relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4
                                         ${isDarkMode
                                             ? 'bg-[#131c2e] border-gray-800 hover:border-[#A60321]/50'
@@ -316,6 +360,18 @@ export default function AvailabilityList() {
                                         <span className={`text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-wider bg-green-500/10 text-green-500 border border-green-500/20`}>
                                             Disponível
                                         </span>
+
+                                        <button
+                                            onClick={() => AvailabilityDelete(avail)}
+                                            className={`p-2 rounded-lg transition-colors flex items-center justify-center
+                                            ${isDarkMode
+                                                    ? 'text-red-500 hover:bg-red-500/10'
+                                                    : 'text-red-600 hover:bg-red-50'
+                                                }`}
+                                            title="Excluir Horário"
+                                        >
+                                            <Trash2 className='w-5 h-5' />
+                                        </button>
                                     </div>
                                 </div>
                             );
