@@ -227,6 +227,34 @@ async function CreateRecord(data_record) {
 }
 
 
+async function DeleteRecord(data_record) {
+    const payload = {
+        'record_id': data_record.id
+    }
+
+    try {
+        const response = await api('/api/v1/medical-record', {
+            method: "DELETE",
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+
+
+
 export {
     GetAllPsychs,
     CreatePsych,
@@ -235,5 +263,6 @@ export {
     CreateAvaibility,
     DeleteAvaliability,
     MetricsCountAppoiments,
-    MetricsRateAppoiments
+    MetricsRateAppoiments,
+    CreateRecord
 }
