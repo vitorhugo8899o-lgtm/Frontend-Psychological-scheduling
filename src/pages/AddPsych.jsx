@@ -140,7 +140,7 @@ export default function AddPsych() {
                     <SidebarButton
                         icon={Home}
                         label="Início"
-                        to="/home"
+                        to="/home-adm"
                     />
 
                     <SidebarButton

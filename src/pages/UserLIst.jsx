@@ -188,7 +188,7 @@ export default function UserList() {
                     <SidebarButton
                         icon={Home}
                         label="Início"
-                        to="/home"
+                        to="/home-adm"
                     />
 
                     <SidebarButton

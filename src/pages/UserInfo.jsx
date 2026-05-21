@@ -157,7 +157,7 @@ export default function UserInfo() {
                         <SidebarButton
                             icon={Home}
                             label="Início"
-                            to="/home"
+                            to="/home-adm"
                         />
 
                         <SidebarButton

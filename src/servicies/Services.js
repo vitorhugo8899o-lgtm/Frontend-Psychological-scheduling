@@ -2,10 +2,6 @@ import { api } from "./api";
 
 
 
-
-
-
-
 async function GetAllServices(params) {
     try {
         const response = await api('/api/v1/services', {
@@ -63,6 +59,31 @@ async function SearchService(filter) {
 }
 
 
+async function CreateService(data_service) {
+    const payload = {
+        'name': data_service.name,
+        'description': data_service.description,
+        'price': data_service.price,
+        'duration_minutes': data_service.duration_minutes
+    }
 
+    try {
+        const response = await api('/api/v1/services', {
+            method: "POST",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
 
-export { GetAllServices, SearchService }
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+export { GetAllServices, SearchService, CreateService }
