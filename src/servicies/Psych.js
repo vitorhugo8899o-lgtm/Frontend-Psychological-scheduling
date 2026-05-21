@@ -1,3 +1,4 @@
+import { use } from "framer-motion/m";
 import { api } from "./api"
 
 async function GetAllPsychs(params) {
@@ -199,6 +200,105 @@ async function MetricsRateAppoiments() {
 }
 
 
+async function CreateRecord(data_record) {
+    const paylaod = {
+        'id_user': data_record.id_user,
+        'id_appoiment': data_record.id_appoiment,
+        'description': data_record.description
+    }
+
+    try {
+        const response = await api('/api/v1/medical-record', {
+            method: "POST",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+async function DeleteRecord(data_record) {
+    const payload = {
+        'record_id': data_record.id
+    }
+
+    try {
+        const response = await api('/api/v1/medical-record', {
+            method: "DELETE",
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+async function GetHistoryRecord() {
+    try {
+        const response = await api('/api/v1/medical-records', {
+            method: "GET",
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+async function GetUserRecords(user_id) {
+    const response = {
+        'user_id': user_id
+    }
+
+    try {
+        const response = await api('/api/v1/user/medical-records', {
+            method: "POST",
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
 export {
     GetAllPsychs,
     CreatePsych,
@@ -207,5 +307,8 @@ export {
     CreateAvaibility,
     DeleteAvaliability,
     MetricsCountAppoiments,
-    MetricsRateAppoiments
+    MetricsRateAppoiments,
+    CreateRecord,
+    GetHistoryRecord,
+    GetUserRecords
 }
