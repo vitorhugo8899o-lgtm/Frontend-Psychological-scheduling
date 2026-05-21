@@ -1,3 +1,4 @@
+import { use } from "framer-motion/m";
 import { api } from "./api"
 
 async function GetAllPsychs(params) {
@@ -273,6 +274,31 @@ async function GetHistoryRecord() {
 }
 
 
+async function GetUserRecords(user_id) {
+    const response = {
+        'user_id': user_id
+    }
+
+    try {
+        const response = await api('/api/v1/user/medical-records', {
+            method: "POST",
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
 export {
     GetAllPsychs,
     CreatePsych,
@@ -283,5 +309,6 @@ export {
     MetricsCountAppoiments,
     MetricsRateAppoiments,
     CreateRecord,
-    GetHistoryRecord
+    GetHistoryRecord,
+    GetUserRecords
 }
