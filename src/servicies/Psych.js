@@ -178,7 +178,25 @@ async function MetricsCountAppoiments(date) {
 }
 
 
+async function MetricsRateAppoiments() {
+    try {
+        const response = await api('/api/v1/psych/me/stats/rate-appoinments', {
+            method: 'GET',
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
 
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
 
 
 export {
@@ -188,5 +206,6 @@ export {
     GetHistoryAppoiment,
     CreateAvaibility,
     DeleteAvaliability,
-    MetricsCountAppoiments
+    MetricsCountAppoiments,
+    MetricsRateAppoiments
 }
