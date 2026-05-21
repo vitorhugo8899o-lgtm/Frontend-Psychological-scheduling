@@ -107,6 +107,35 @@ async function CreateAvaibility(data_avaibility) {
             body: JSON.stringify(payload),
             credentials: 'include'
         })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
+async function DeleteAvaliability(data_avaibility) {
+    const payload = {
+        'days_of_the_week': data_avaibility.days_of_the_week,
+        'start_time': data_avaibility.start_time,
+        'end_time': data_avaibility.end_time
+    }
+
+    try {
+        const response = await api('/api/v1/psych/me/avaibility', {
+            method: "DELETE",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+        return response
     } catch (error) {
         let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
 
@@ -125,4 +154,13 @@ async function CreateAvaibility(data_avaibility) {
 
 
 
-export { GetAllPsychs, CreatePsych, GetNextsPsychAppoiments, GetHistoryAppoiment }
+
+
+export {
+    GetAllPsychs,
+    CreatePsych,
+    GetNextsPsychAppoiments,
+    GetHistoryAppoiment,
+    CreateAvaibility,
+    DeleteAvaliability
+}
