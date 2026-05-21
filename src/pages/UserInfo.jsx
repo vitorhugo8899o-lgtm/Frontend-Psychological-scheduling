@@ -17,7 +17,8 @@ import {
     ClipboardListIcon,
     Search,
     UserLock,
-    Brain
+    Brain,
+    Banknote
 } from 'lucide-react';
 import { Logout, GetUser } from '../servicies/Users';
 import { useNavigate } from "react-router-dom";
@@ -157,7 +158,7 @@ export default function UserInfo() {
                         <SidebarButton
                             icon={Home}
                             label="Início"
-                            to="/home"
+                            to="/home-adm"
                         />
 
                         <SidebarButton
@@ -186,7 +187,7 @@ export default function UserInfo() {
                         />
 
                         <SidebarButton
-                            icon={CalendarPlus}
+                            icon={Banknote}
                             label="Relátorio Financeiro."
                             to='/financial-report'
                         />

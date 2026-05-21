@@ -17,7 +17,8 @@ import {
     Shield,
     ClipboardListIcon,
     UserLock,
-    Brain
+    Brain,
+    Banknote
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetAllUsers } from '../servicies/Users';
@@ -188,7 +189,7 @@ export default function UserList() {
                     <SidebarButton
                         icon={Home}
                         label="Início"
-                        to="/home"
+                        to="/home-adm"
                     />
 
                     <SidebarButton
@@ -217,7 +218,7 @@ export default function UserList() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={Banknote}
                         label="Relátorio Financeiro."
                         to='/financial-report'
                     />

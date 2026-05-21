@@ -16,7 +16,8 @@ import {
     Loader2,
     ClipboardListIcon,
     UserLock,
-    Brain
+    Brain,
+    Banknote
 } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import SidebarButton from '../componentes/SidebarButton';
@@ -140,7 +141,7 @@ export default function AddPsych() {
                     <SidebarButton
                         icon={Home}
                         label="Início"
-                        to="/home"
+                        to="/home-adm"
                     />
 
                     <SidebarButton
@@ -169,7 +170,7 @@ export default function AddPsych() {
                     />
 
                     <SidebarButton
-                        icon={CalendarPlus}
+                        icon={Banknote}
                         label="Relátorio Financeiro."
                         to='/financial-report'
                     />
