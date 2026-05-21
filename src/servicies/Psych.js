@@ -49,6 +49,25 @@ async function CreatePsych(data_psych) {
 }
 
 
+async function GetNextsPsychAppoiments() {
+    try {
+        const response = await api('/api/v1/psych/me/next-appoiments', {
+            method: "GET",
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
 
 
-export { GetAllPsychs, CreatePsych }
+export { GetAllPsychs, CreatePsych, GetNextsPsychAppoiments }
