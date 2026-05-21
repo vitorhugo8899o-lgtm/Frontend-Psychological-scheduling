@@ -299,6 +299,26 @@ async function GetUserRecords(user_id) {
 }
 
 
+async function GetAvaliabilitys() {
+    try {
+        const response = await api('/api/v1/psych/me/availability', {
+            method: "GET",
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
 export {
     GetAllPsychs,
     CreatePsych,
@@ -310,5 +330,6 @@ export {
     MetricsRateAppoiments,
     CreateRecord,
     GetHistoryRecord,
-    GetUserRecords
+    GetUserRecords,
+    GetAvaliabilitys
 }
