@@ -199,6 +199,34 @@ async function MetricsRateAppoiments() {
 }
 
 
+async function CreateRecord(data_record) {
+    const paylaod = {
+        'id_user': data_record.id_user,
+        'id_appoiment': data_record.id_appoiment,
+        'description': data_record.description
+    }
+
+    try {
+        const response = await api('/api/v1/medical-record', {
+            method: "POST",
+            body: JSON.stringify(payload),
+            credentials: 'include'
+        })
+        return response
+    } catch (error) {
+        let errorMessage = "Erro de conexão com o servidor. Tente novamente.";
+
+        if (error.response) {
+            const status = error.response.status;
+            const detail = error.response.data?.detail;
+
+            errorMessage = `Erro. Status: ${status}, detalhe: ${detail}`
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+
 export {
     GetAllPsychs,
     CreatePsych,
