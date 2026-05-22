@@ -29,6 +29,7 @@ import AppointmentHistoryPsych from './pages/AppointmentHistoryPsych.jsx';
 import DashboardPsych from './pages/MetricsPsych.jsx';
 import MedicalRecord from './pages/MedicalRecord.jsx';
 import ClientRecordList from './pages/UserRecordList.jsx';
+import MedicalRecordList from './pages/MedicalRecordList.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -140,6 +141,10 @@ const routers = createBrowserRouter([
       {
         path: "/record-user",
         element: <ClientRecordList />
+      },
+      {
+        path: "/medical-records",
+        element: <MedicalRecordList />
       }
     ]
   }

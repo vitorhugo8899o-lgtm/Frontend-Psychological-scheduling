@@ -113,8 +113,6 @@ export default function AppointmentsInProgress() {
     const handlePayment = async (appointment) => {
         const actionKey = `pay-${appointment.id}`;
 
-        const newTab = window.open('about:blank', '_blank', 'noopener,noreferrer');
-
         try {
             setLoadingActions(prev => ({ ...prev, [actionKey]: true }));
 
@@ -143,24 +141,16 @@ export default function AppointmentsInProgress() {
             }
 
             if (paymentUrl && typeof paymentUrl === 'string' && paymentUrl.startsWith('http')) {
-                if (newTab) {
-                    newTab.location.href = paymentUrl;
-                } else {
-                    window.location.href = paymentUrl;
-                }
                 showNotification('success', 'Redirecionando para o Mercado Pago...');
+
+                window.location.href = paymentUrl;
+
             } else {
-                if (newTab && !newTab.closed) {
-                    newTab.close();
-                }
                 console.error("Link não encontrado dentro do objeto:", responseData);
                 throw new Error('A resposta do servidor não continha um link de pagamento válido.');
             }
 
         } catch (error) {
-            if (newTab && !newTab.closed) {
-                newTab.close();
-            }
             console.error("Erro ao processar pagamento:", error);
             showNotification('error', error.message || 'Não foi possível iniciar o pagamento.');
         } finally {
