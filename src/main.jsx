@@ -25,6 +25,7 @@ import FinancialReport from './pages/FinancialReport.jsx';
 import HomePsych from './pages/HomePsych.jsx';
 import AvailabilityList from './pages/AvailabilityList.jsx';
 import CreateAvailability from './pages/CreateAvailability.jsx';
+import AppointmentHistoryPsych from './pages/AppointmentHistoryPsych.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -120,6 +121,10 @@ const routers = createBrowserRouter([
       {
         path: "/create-avaliabilite",
         element: <CreateAvailability />
+      },
+      {
+        path: "/psych-history",
+        element: <AppointmentHistoryPsych />
       }
     ]
   }
