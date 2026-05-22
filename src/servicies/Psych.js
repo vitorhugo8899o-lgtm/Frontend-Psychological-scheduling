@@ -1,5 +1,5 @@
 import { use } from "framer-motion/m";
-import { api } from "./api"
+import { api } from "./Api"
 
 async function GetAllPsychs() {
     try {
