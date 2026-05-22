@@ -26,6 +26,7 @@ import HomePsych from './pages/HomePsych.jsx';
 import AvailabilityList from './pages/AvailabilityList.jsx';
 import CreateAvailability from './pages/CreateAvailability.jsx';
 import AppointmentHistoryPsych from './pages/AppointmentHistoryPsych.jsx';
+import DashboardPsych from './pages/MetricsPsych.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -125,6 +126,10 @@ const routers = createBrowserRouter([
       {
         path: "/psych-history",
         element: <AppointmentHistoryPsych />
+      },
+      {
+        path: "/dashboard",
+        element: <DashboardPsych />
       }
     ]
   }
