@@ -269,13 +269,14 @@ async function GetHistoryRecord() {
 
 
 async function GetUserRecords(user_id) {
-    const response = {
+    const payload = {
         'user_id': user_id
     }
 
     try {
         const response = await api('/api/v1/user/medical-records', {
             method: "POST",
+            body: JSON.stringify(payload),
             credentials: 'include'
         })
         return response
