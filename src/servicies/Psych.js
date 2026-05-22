@@ -1,7 +1,7 @@
 import { use } from "framer-motion/m";
 import { api } from "./api"
 
-async function GetAllPsychs(params) {
+async function GetAllPsychs() {
     try {
         const response = await api('/api/v1/psych', {
             method: "GET",
@@ -151,16 +151,10 @@ async function DeleteAvaliability(data_avaibility) {
 }
 
 
-async function MetricsCountAppoiments(date) {
-    const payload = {
-        'start_date': date.start_date,
-        'end_date': date.end_date
-    }
-
+async function MetricsCountAppoiments() {
     try {
         const response = await api('/api/v1/psych/me/stats/appoinment-count', {
-            method: "POST",
-            body: JSON.stringify(payload),
+            method: "GET",
             credentials: 'include'
         })
 

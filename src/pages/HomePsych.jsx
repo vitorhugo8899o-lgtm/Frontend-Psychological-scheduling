@@ -270,7 +270,7 @@ export default function HomePsych() {
                         </div>
                     </Link>
 
-                    <Link to='/metrical'>
+                    <Link to='/dashboard'>
                         <div
                             className={`p-6 rounded-2xl border cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#A60321] ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
                                 }`}
