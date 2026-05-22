@@ -103,7 +103,7 @@ async function CreateAvaibility(data_avaibility) {
     }
 
     try {
-        const response = await api('/api/v1/psych/me/avaibility', {
+        const response = await api('/api/v1/psych/me/availability', {
             method: "POST",
             body: JSON.stringify(payload),
             credentials: 'include'
