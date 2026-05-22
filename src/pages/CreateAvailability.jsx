@@ -284,8 +284,8 @@ export default function CreateAvailability() {
                             <div className="relative">
                                 <div
                                     onClick={() => setIsDaysDropdownOpen(!isDaysDropdownOpen)}
-                                    className={`min-h-[50px] w-full p-3 rounded-xl border cursor-pointer flex flex-wrap items-center justify-between gap-2 transition-colors ${isDarkMode
-                                        ? 'bg-[#0f172a] border-gray-700 hover:border-gray-600 text-gray-200'
+                                    className={`min-h-12.5 w-full p-3 rounded-xl border cursor-pointer flex flex-wrap items-center justify-between gap-2 transition-colors ${isDarkMode
+                                        ? 'bg-[#0f172a] border-gray-700 hover:border-gray-600   text-gray-200'
                                         : 'bg-[#FAF5EC]/50 border-[#8C5C32]/30 hover:border-[#8C5C32]/50 text-gray-800'
                                         }`}
                                 >

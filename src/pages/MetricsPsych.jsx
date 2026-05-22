@@ -413,7 +413,7 @@ export default function DashboardPsych() {
                                                 className="h-full bg-rose-500 transition-all duration-1000 ease-out rounded-full relative overflow-hidden"
                                                 style={{ width: `${canceledPercent}%` }}
                                             >
-                                                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_25%,rgba(255,255,255,0.2)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.2)_75%,rgba(255,255,255,0.2)_100%)] bg-[length:16px_16px]"></div>
+                                                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_25%,rgba(255,255,255,0.2)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.2)_75%,rgba(255,255,255,0.2)_100%)] bg-size-[16px-16px]"></div>
                                             </div>
                                         </div>
                                     </div>

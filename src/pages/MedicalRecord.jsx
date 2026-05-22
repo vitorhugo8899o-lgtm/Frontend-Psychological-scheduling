@@ -359,7 +359,7 @@ export default function MedicalRecord() {
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 placeholder="Descreva os detalhes clínicos da sessão, observações, evolução do paciente..."
-                                className={`resize-y min-h-[160px] ${inputBaseStyles} ${validationErrors.description
+                                className={`resize-y min-h-40 ${inputBaseStyles} ${validationErrors.description
                                     ? 'border-red-500 focus:ring-red-500/20 focus:border-red-500'
                                     : (isDarkMode ? 'border-gray-700 focus:ring-[#A60321]/20 focus:border-[#A60321]' : 'border-[#8C5C32]/30 focus:ring-[#A60321]/20 focus:border-[#A60321]')
                                     }`}
