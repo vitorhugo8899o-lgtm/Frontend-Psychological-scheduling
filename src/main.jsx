@@ -27,6 +27,7 @@ import AvailabilityList from './pages/AvailabilityList.jsx';
 import CreateAvailability from './pages/CreateAvailability.jsx';
 import AppointmentHistoryPsych from './pages/AppointmentHistoryPsych.jsx';
 import DashboardPsych from './pages/MetricsPsych.jsx';
+import MedicalRecord from './pages/MedicalRecord.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -130,6 +131,10 @@ const routers = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashboardPsych />
+      },
+      {
+        path: "create-record",
+        element: <MedicalRecord />
       }
     ]
   }

@@ -195,7 +195,7 @@ export default function HomePsych() {
                     <SidebarButton
                         icon={BookMarked}
                         label="Crie um Prontuário."
-                        to='/records'
+                        to='/create-record'
                     />
 
                     <SidebarButton

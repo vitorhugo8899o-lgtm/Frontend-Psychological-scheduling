@@ -181,15 +181,60 @@ export default function DashboardPsych() {
                 </div>
 
                 <nav className="flex-1 py-8 flex flex-col gap-1 overflow-y-auto">
-                    <SidebarButton icon={Home} label="Início" to="/home-psych" />
-                    <SidebarButton icon={ClipboardListIcon} label="Lista de disponibilidade." to='/avaliabilites' />
-                    <SidebarButton icon={Clock} label="Adicione um horário de trabalho." to='/create-avaliabilite' />
-                    <SidebarButton icon={Brain} label="Histórico de consultas" to='/psych-history' />
-                    <SidebarButton icon={Activity} label="Métricas de consultas." to='/dashboard' isActive />
-                    <SidebarButton icon={BookMarked} label="Crie um Prontuário." to='/records' />
-                    <SidebarButton icon={BookKey} label="Busque um prontuário de um usuário." to='/record-user' />
-                    <SidebarButton icon={BookOpenText} label="Lista de todos os prontuários criados." to='/medical-records' />
-                    <SidebarButton icon={LogOut} label="Sair" onClick={LogoutUser} />
+                    <SidebarButton
+                        icon={Home}
+                        label="Início"
+                        to="/home-psych"
+                    />
+
+                    <SidebarButton
+                        icon={ClipboardListIcon}
+                        label="Lista de disponibilidade."
+                        to='/avaliabilites'
+                    />
+
+                    <SidebarButton
+                        icon={Clock}
+                        label="Adicione um horário de trabalho."
+                        to='/create-avaliabilite'
+                    />
+
+                    <SidebarButton
+                        icon={Brain}
+                        label="Histórico de consultas"
+                        to='/psych-history'
+                    />
+
+                    <SidebarButton
+                        icon={Activity}
+                        label="Métricas de consultas."
+                        to='/dashboard'
+                        isActive
+                    />
+
+                    <SidebarButton
+                        icon={BookMarked}
+                        label="Crie um Prontuário."
+                        to='/create-record'
+                    />
+
+                    <SidebarButton
+                        icon={BookKey}
+                        label="Busque uma lista de prontuários de um cliente."
+                        to='/record-user'
+                    />
+
+                    <SidebarButton
+                        icon={BookOpenText}
+                        label="Lista de todos os prontuários criados."
+                        to='/medical-records'
+                    />
+
+                    <SidebarButton
+                        icon={LogOut}
+                        label="Sair"
+                        onClick={LogoutUser}
+                    />
                 </nav>
             </aside>
 
@@ -368,7 +413,7 @@ export default function DashboardPsych() {
                                                 className="h-full bg-rose-500 transition-all duration-1000 ease-out rounded-full relative overflow-hidden"
                                                 style={{ width: `${canceledPercent}%` }}
                                             >
-                                                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_25%,rgba(255,255,255,0.2)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.2)_75%,rgba(255,255,255,0.2)_100%)] bg-[length:16px_16px]"></div>
+                                                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_25%,rgba(255,255,255,0.2)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.2)_75%,rgba(255,255,255,0.2)_100%)] bg-size-[16px-16px]"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -380,7 +425,6 @@ export default function DashboardPsych() {
                 )}
             </main>
 
-            {/* Toggle Theme Button */}
             <button
                 onClick={toggleTheme}
                 className={`fixed bottom-6 right-6 p-4 rounded-full shadow-xl flex items-center gap-2 font-medium text-sm transition-all duration-300 transform hover:scale-105 active:scale-95 z-50 ${isDarkMode

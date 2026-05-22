@@ -183,7 +183,6 @@ export default function AppointmentHistoryPsych() {
                         icon={Home}
                         label="Início"
                         to="/home-psych"
-                        isActive
                     />
 
                     <SidebarButton
@@ -202,6 +201,7 @@ export default function AppointmentHistoryPsych() {
                         icon={Brain}
                         label="Histórico de consultas"
                         to='/psych-history'
+                        isActive
                     />
 
                     <SidebarButton
@@ -213,12 +213,12 @@ export default function AppointmentHistoryPsych() {
                     <SidebarButton
                         icon={BookMarked}
                         label="Crie um Prontuário."
-                        to='/records'
+                        to='/create-record'
                     />
 
                     <SidebarButton
                         icon={BookKey}
-                        label="Busque um prontuário de um usuário."
+                        label="Busque uma lista de prontuários de um cliente."
                         to='/record-user'
                     />
 

@@ -195,7 +195,7 @@ async function MetricsRateAppoiments() {
 
 
 async function CreateRecord(data_record) {
-    const paylaod = {
+    const payload = {
         'id_user': data_record.id_user,
         'id_appoiment': data_record.id_appoiment,
         'description': data_record.description
