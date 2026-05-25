@@ -95,7 +95,7 @@ async function GetHistoryAppoiment() {
 async function CreateAvaibility(data_avaibility) {
     const payload = {
         'availabilities': [{
-            'days_of_the_week': [],
+            'days_of_the_week': data_avaibility.days_of_the_week,
             'start_time': data_avaibility.start_time,
             'end_time': data_avaibility.end_time
         }
