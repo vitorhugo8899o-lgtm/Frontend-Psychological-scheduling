@@ -321,8 +321,9 @@ export default function ScheduleAppoiment() {
                             </div>
                         </div>
 
+
                         <button
-                            onClick={() => console.log("Integrando com Gateway de Pagamento...")}
+                            onClick={() => navigate('/appoiments/in-progress')}
                             className="w-full sm:w-auto px-8 py-3.5 bg-[#A60321] text-white font-medium rounded-xl shadow-lg shadow-[#A60321]/20 hover:bg-[#A60321]/90 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 mx-auto"
                         >
                             Prosseguir para pagamento
