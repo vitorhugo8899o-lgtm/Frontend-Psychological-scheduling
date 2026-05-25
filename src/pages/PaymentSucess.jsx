@@ -1,8 +1,18 @@
 import { CheckCircle2, Home, Heart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion } from 'framer-motion';
 
 export default function PaymentSuccessPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.search) {
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location, navigate]);
+
   const containerVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
