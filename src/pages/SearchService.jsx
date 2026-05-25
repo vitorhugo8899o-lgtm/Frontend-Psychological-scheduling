@@ -16,7 +16,8 @@ import {
     Clock,
     FileText,
     SlidersHorizontal,
-    Settings
+    Settings,
+    FolderOpen
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { SearchService } from '../servicies/Services';
@@ -200,23 +201,33 @@ export default function SearchServices() {
                         icon={Home}
                         label="Início"
                         to="/home"
+                        isActive
                     />
+
                     <SidebarButton
                         icon={CalendarPlus}
                         label="Marcar consulta"
                         to='/appoiment'
                     />
+
+                    <SidebarButton
+                        icon={FolderOpen}
+                        label="Consultas em progresso"
+                        to="/appoiments/in-progress"
+                    />
+
                     <SidebarButton
                         icon={Search}
                         label="Busca avançada por serviços"
                         to="/filter-services"
-                        isActive
                     />
+
                     <SidebarButton
                         icon={ClipboardList}
                         label="Minhas consultas"
                         to='/history-appoiment'
                     />
+
                     <SidebarButton
                         icon={Settings}
                         label="Configurações de conta."

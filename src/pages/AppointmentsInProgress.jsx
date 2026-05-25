@@ -17,7 +17,9 @@ import {
     DollarSign,
     XCircle,
     CalendarClock,
-    CheckCircle2
+    CheckCircle2,
+    FolderOpen,
+    Search
 } from 'lucide-react';
 import { useNavigate, Link } from "react-router-dom";
 
@@ -125,8 +127,6 @@ export default function AppointmentsInProgress() {
                 responseData = response.data;
             }
 
-            console.log("Retorno do backend (Pagamento):", responseData);
-
             let paymentUrl = null;
 
             if (typeof responseData === 'string' && responseData.startsWith('http')) {
@@ -147,16 +147,15 @@ export default function AppointmentsInProgress() {
 
                 showNotification(
                     "success",
-                    "A página de pagamento foi aberta em outra aba."
+                    "A página de pagamento foi aberta em outra aba.",
+                    10
                 );
 
             } else {
-                console.error("Link não encontrado dentro do objeto:", responseData);
                 throw new Error('A resposta do servidor não continha um link de pagamento válido.');
             }
 
         } catch (error) {
-            console.error("Erro ao processar pagamento:", error);
             showNotification('error', error.message || 'Não foi possível iniciar o pagamento.');
         } finally {
             setLoadingActions(prev => ({ ...prev, [actionKey]: false }));
@@ -181,7 +180,6 @@ export default function AppointmentsInProgress() {
 
             showNotification('success', 'Consulta cancelada com sucesso!');
         } catch (error) {
-            console.error("Erro ao cancelar consulta:", error);
             showNotification('error', error.message || 'Não foi possível cancelar a consulta.');
         } finally {
             setLoadingActions(prev => ({ ...prev, [actionKey]: false }));
@@ -246,7 +244,6 @@ export default function AppointmentsInProgress() {
             showNotification('success', 'Consulta remarcada com sucesso!');
             closeRescheduleModal();
         } catch (error) {
-            console.error("Erro ao remarcar consulta:", error);
             showNotification('error', error.message || 'Não foi possível remarcar a consulta.');
         } finally {
             setLoadingActions(prev => ({ ...prev, [actionKey]: false }));
@@ -328,15 +325,21 @@ export default function AppointmentsInProgress() {
 
                     <SidebarButton
                         icon={CalendarPlus}
-                        label="Agendar consulta"
-                        to="/simulation"
+                        label="Marcar consulta"
+                        to='/appoiment'
                     />
 
                     <SidebarButton
-                        icon={Clock}
-                        label="Consultas em Progresso"
-                        to="/appointments-in-progress"
+                        icon={FolderOpen}
+                        label="Consultas em progresso"
+                        to="/appoiments/in-progress"
                         isActive
+                    />
+
+                    <SidebarButton
+                        icon={Search}
+                        label="Busca avançada por serviços"
+                        to="/filter-services"
                     />
 
                     <SidebarButton
@@ -347,7 +350,7 @@ export default function AppointmentsInProgress() {
 
                     <SidebarButton
                         icon={Settings}
-                        label="Configurações de conta"
+                        label="Configurações de conta."
                         to='/settings'
                     />
 
