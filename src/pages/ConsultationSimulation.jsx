@@ -227,6 +227,12 @@ export default function Simulation() {
                     />
 
                     <SidebarButton
+                        icon={FolderOpen}
+                        label="Consultas em progresso"
+                        to="/appoiments/in-progress"
+                    />
+
+                    <SidebarButton
                         icon={Search}
                         label="Busca avançada por serviços"
                         to="/filter-services"
@@ -236,6 +242,12 @@ export default function Simulation() {
                         icon={ClipboardList}
                         label="Minhas consultas"
                         to='/history-appoiment'
+                    />
+
+                    <SidebarButton
+                        icon={Settings}
+                        label="Configurações de conta."
+                        to='/settings'
                     />
 
                     <SidebarButton

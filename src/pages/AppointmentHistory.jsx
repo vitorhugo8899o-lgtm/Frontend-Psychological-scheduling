@@ -15,7 +15,8 @@ import {
     Sun,
     Moon,
     FileText,
-    FolderOpen
+    FolderOpen,
+    Search
 } from 'lucide-react';
 import { Logout } from '../servicies/Users';
 import { GetAllAppoimentsUser } from '../servicies/Appoiment';
@@ -178,12 +179,13 @@ export default function AppointmentHistory() {
                         icon={Home}
                         label="Início"
                         to="/home"
+                        isActive
                     />
 
                     <SidebarButton
                         icon={CalendarPlus}
                         label="Marcar consulta"
-                        to="/appoiment"
+                        to='/appoiment'
                     />
 
                     <SidebarButton
@@ -193,14 +195,20 @@ export default function AppointmentHistory() {
                     />
 
                     <SidebarButton
+                        icon={Search}
+                        label="Busca avançada por serviços"
+                        to="/filter-services"
+                    />
+
+                    <SidebarButton
                         icon={ClipboardList}
                         label="Minhas consultas"
-                        isActive
+                        to='/history-appoiment'
                     />
 
                     <SidebarButton
                         icon={Settings}
-                        label="Configurações de conta"
+                        label="Configurações de conta."
                         to='/settings'
                     />
 
