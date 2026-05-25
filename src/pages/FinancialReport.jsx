@@ -67,6 +67,7 @@ export default function FinancialReport() {
     const handleGenerateReport = async (e) => {
         e.preventDefault();
         setError(null);
+        setReportData(null);
 
         if (!startDate || !endDate) {
             return setError("Preencha as datas de início e fim.");
@@ -92,6 +93,10 @@ export default function FinancialReport() {
 
             if (rawData && typeof rawData.json === 'function') {
                 rawData = await rawData.json();
+            }
+
+            if (rawData && rawData.message) {
+                throw new Error(rawData.message);
             }
 
             if (!rawData || !rawData.by_service) {
