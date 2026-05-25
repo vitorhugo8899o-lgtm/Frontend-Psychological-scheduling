@@ -524,7 +524,7 @@ export default function AppointmentsInProgress() {
                                                     <>
                                                         <DollarSign className="w-4 h-4" />
                                                         <Link to={"/appointments-in-progress"}>
-                                                            <span>Visualizar Consulta</span>
+                                                            <span>Pagar Consulta</span>
                                                         </Link>
                                                     </>
                                                 )}
