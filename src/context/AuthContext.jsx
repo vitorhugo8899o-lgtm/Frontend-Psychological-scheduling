@@ -9,17 +9,13 @@ export const AuthProvider = ({ children }) => {
 
     const checkAuth = async () => {
         try {
-            const response = await api('/api/v1/validate-session', {
+            await api('/api/v1/validate-session', {
                 method: "POST",
             });
 
-            if (response.ok) {
-                setIsAuthenticated(true);
-                return true;
-            } else {
-                setIsAuthenticated(false);
-                return false;
-            }
+            setIsAuthenticated(true);
+            return true;
+
         } catch (error) {
             setIsAuthenticated(false);
             return false;
