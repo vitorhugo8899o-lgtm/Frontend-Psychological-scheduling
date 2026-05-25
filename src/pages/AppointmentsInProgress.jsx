@@ -143,7 +143,12 @@ export default function AppointmentsInProgress() {
             if (paymentUrl && typeof paymentUrl === 'string' && paymentUrl.startsWith('http')) {
                 showNotification('success', 'Redirecionando para o Mercado Pago...');
 
-                window.location.href = paymentUrl;
+                window.open(paymentUrl, "_blank", "noopener,noreferrer");
+
+                showNotification(
+                    "success",
+                    "A página de pagamento foi aberta em outra aba."
+                );
 
             } else {
                 console.error("Link não encontrado dentro do objeto:", responseData);
