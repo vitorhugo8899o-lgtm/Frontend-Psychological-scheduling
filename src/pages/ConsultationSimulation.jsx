@@ -15,7 +15,6 @@ import {
     LogOut,
     Loader2,
     AlertCircle,
-    Home,
     FolderOpen,
     Settings
 } from 'lucide-react';
