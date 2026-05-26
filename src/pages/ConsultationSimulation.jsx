@@ -14,7 +14,9 @@ import {
     X,
     LogOut,
     Loader2,
-    AlertCircle
+    AlertCircle,
+    FolderOpen,
+    Settings
 } from 'lucide-react';
 
 import { GetAllServices } from '../servicies/Services';
