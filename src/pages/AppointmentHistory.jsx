@@ -179,7 +179,6 @@ export default function AppointmentHistory() {
                         icon={Home}
                         label="Início"
                         to="/home"
-                        isActive
                     />
 
                     <SidebarButton
@@ -204,6 +203,7 @@ export default function AppointmentHistory() {
                         icon={ClipboardList}
                         label="Minhas consultas"
                         to='/history-appoiment'
+                        isActive
                     />
 
                     <SidebarButton

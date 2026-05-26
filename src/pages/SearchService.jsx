@@ -201,7 +201,6 @@ export default function SearchServices() {
                         icon={Home}
                         label="Início"
                         to="/home"
-                        isActive
                     />
 
                     <SidebarButton
@@ -220,6 +219,7 @@ export default function SearchServices() {
                         icon={Search}
                         label="Busca avançada por serviços"
                         to="/filter-services"
+                        isActive
                     />
 
                     <SidebarButton
