@@ -30,6 +30,7 @@ import DashboardPsych from './pages/MetricsPsych.jsx';
 import MedicalRecord from './pages/MedicalRecord.jsx';
 import ClientRecordList from './pages/UserRecordList.jsx';
 import MedicalRecordList from './pages/MedicalRecordList.jsx';
+import PageNotFoundPage from './pages/NotFoundPage.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 
@@ -147,6 +148,10 @@ const routers = createBrowserRouter([
         element: <MedicalRecordList />
       }
     ]
+  },
+  {
+    path: "*",
+    element: <PageNotFoundPage />
   }
 ])
 
