@@ -32,7 +32,7 @@ import ClientRecordList from './pages/UserRecordList.jsx';
 import MedicalRecordList from './pages/MedicalRecordList.jsx';
 import PageNotFoundPage from './pages/NotFoundPage.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
-
+import { ROLES } from './servicies/Users.js';
 
 
 const routers = createBrowserRouter([
@@ -57,7 +57,7 @@ const routers = createBrowserRouter([
     element: <PaymentSuccessPage />
   },
   {
-    element: <ProtectedRoute allowedRoles={['UserRole.client']} />,
+    element: <ProtectedRoute allowedRoles={[ROLES.CLIENT]} />,
     children: [
       {
         path: "/home",
@@ -94,7 +94,7 @@ const routers = createBrowserRouter([
     ],
   },
   {
-    element: <ProtectedRoute allowedRoles={['UserRole.adm']} />,
+    element: <ProtectedRoute allowedRoles={[ROLES.ADMIN]} />,
     children: [
       { path: "/home-adm", element: <HomeAdm /> },
       { path: "/users-list", element: <UserList /> },
@@ -105,7 +105,7 @@ const routers = createBrowserRouter([
     ]
   },
   {
-    element: <ProtectedRoute allowedRoles={['UserRole.psychologist']} />,
+    element: <ProtectedRoute allowedRoles={[ROLES.PSYCH]} />,
     children: [
       { path: "/home-psych", element: <HomePsych /> },
       { path: "/avaliabilites", element: <AvailabilityList /> },
