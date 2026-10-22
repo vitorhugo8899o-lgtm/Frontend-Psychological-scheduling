@@ -57,7 +57,7 @@ const routers = createBrowserRouter([
     element: <PaymentSuccessPage />
   },
   {
-    element: <ProtectedRoute />,
+    element: <ProtectedRoute allowedRoles={['cliente']} />,
     children: [
       {
         path: "/home",
@@ -91,62 +91,30 @@ const routers = createBrowserRouter([
         path: "/chat-mira",
         element: <ChatMira />
       },
-      {
-        path: "/home-adm",
-        element: <HomeAdm />
-      },
-      {
-        path: "/users-list",
-        element: <UserList />
-      },
-      {
-        path: "/user-info",
-        element: <UserInfo />
-      },
-      {
-        path: "/add-psych",
-        element: <AddPsych />
-      },
-      {
-        path: "/create-service",
-        element: <CreateServicePage />
-      },
-      {
-        path: "/financial-report",
-        element: <FinancialReport />
-      },
-      {
-        path: "/home-psych",
-        element: <HomePsych />
-      },
-      {
-        path: "/avaliabilites",
-        element: <AvailabilityList />
-      },
-      {
-        path: "/create-avaliabilite",
-        element: <CreateAvailability />
-      },
-      {
-        path: "/psych-history",
-        element: <AppointmentHistoryPsych />
-      },
-      {
-        path: "/dashboard",
-        element: <DashboardPsych />
-      },
-      {
-        path: "create-record",
-        element: <MedicalRecord />
-      },
-      {
-        path: "/record-user",
-        element: <ClientRecordList />
-      },
-      {
-        path: "/medical-records",
-        element: <MedicalRecordList />
-      }
+    ],
+  },
+  {
+    element: <ProtectedRoute allowedRoles={['adm']} />,
+    children: [
+      { path: "/home-adm", element: <HomeAdm /> },
+      { path: "/users-list", element: <UserList /> },
+      { path: "/user-info", element: <UserInfo /> },
+      { path: "/add-psych", element: <AddPsych /> },
+      { path: "/create-service", element: <CreateServicePage /> },
+      { path: "/financial-report", element: <FinancialReport /> }
+    ]
+  },
+  {
+    element: <ProtectedRoute allowedRoles={['psychologist']} />,
+    children: [
+      { path: "/home-psych", element: <HomePsych /> },
+      { path: "/avaliabilites", element: <AvailabilityList /> },
+      { path: "/create-avaliabilite", element: <CreateAvailability /> },
+      { path: "/psych-history", element: <AppointmentHistoryPsych /> },
+      { path: "/dashboard", element: <DashboardPsych /> },
+      { path: "create-record", element: <MedicalRecord /> },
+      { path: "/record-user", element: <ClientRecordList /> },
+      { path: "/medical-records", element: <MedicalRecordList /> },
     ]
   },
   {
@@ -154,9 +122,6 @@ const routers = createBrowserRouter([
     element: <PageNotFoundPage />
   }
 ])
-
-
-
 
 
 createRoot(document.getElementById("root")).render(
