@@ -11,8 +11,6 @@ const ProtectedRoute = ({ allowedRoles }) => {
         return <LoadingScreen />;
     }
 
-    console.log('role:', user?.role, '| permitidos:', allowedRoles);
-
     if (!isAuthenticated) {
         return <Navigate to="/auth" replace />;
     }
