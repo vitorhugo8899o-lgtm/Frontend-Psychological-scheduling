@@ -57,7 +57,7 @@ const routers = createBrowserRouter([
     element: <PaymentSuccessPage />
   },
   {
-    element: <ProtectedRoute allowedRoles={['client']} />,
+    element: <ProtectedRoute allowedRoles={['UserRole.client']} />,
     children: [
       {
         path: "/home",
@@ -94,7 +94,7 @@ const routers = createBrowserRouter([
     ],
   },
   {
-    element: <ProtectedRoute allowedRoles={['adm']} />,
+    element: <ProtectedRoute allowedRoles={['UserRole.adm']} />,
     children: [
       { path: "/home-adm", element: <HomeAdm /> },
       { path: "/users-list", element: <UserList /> },
@@ -105,7 +105,7 @@ const routers = createBrowserRouter([
     ]
   },
   {
-    element: <ProtectedRoute allowedRoles={['psychologist']} />,
+    element: <ProtectedRoute allowedRoles={['UserRole.psychologist']} />,
     children: [
       { path: "/home-psych", element: <HomePsych /> },
       { path: "/avaliabilites", element: <AvailabilityList /> },
