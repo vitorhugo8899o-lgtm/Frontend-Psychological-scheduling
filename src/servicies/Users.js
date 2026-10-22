@@ -188,5 +188,10 @@ async function GetUser(id_user) {
     }
 }
 
+export const ROLES = {
+    CLIENT: 'cliente',
+    ADMIN: 'adm',
+    PSYCH: 'psychologist',
+};
 
 export { CreateUser, Login, Logout, UpdateUserInfo, DesactiveAccount, GetAllUsers, GetUser }
