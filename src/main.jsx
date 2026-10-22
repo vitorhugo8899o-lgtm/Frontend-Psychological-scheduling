@@ -57,7 +57,7 @@ const routers = createBrowserRouter([
     element: <PaymentSuccessPage />
   },
   {
-    element: <ProtectedRoute allowedRoles={['cliente']} />,
+    element: <ProtectedRoute allowedRoles={['client']} />,
     children: [
       {
         path: "/home",
