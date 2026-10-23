@@ -18,8 +18,6 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
 
-            console.log(data)
-
             const currentUser = data?.user ?? null;
             setUser(currentUser);
             return currentUser;
