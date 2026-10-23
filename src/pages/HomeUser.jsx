@@ -62,7 +62,6 @@ export default function ClinicaHome() {
                 } else if (data && Array.isArray(data.data)) {
                     setAppointments(data.data);
                 } else {
-                    console.warn("O formato final dos dados não é um array válido:", data);
                     setAppointments([]);
                 }
             } catch (error) {
