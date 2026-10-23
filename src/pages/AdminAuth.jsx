@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Mail, Lock, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
 import { InputField } from "../componentes/Conponentes";
-import { Login } from "../servicies/Users";
-import { replace, useNavigate } from "react-router-dom";
+import { Login, Logout } from "../servicies/Users";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { ROLES } from "../servicies/Users";
 
 
 const AdminLoginPage = () => {
@@ -13,6 +15,8 @@ const AdminLoginPage = () => {
 
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    const { checkAuth, setUser } = useAuth();
 
     const navigate = useNavigate();
 
@@ -26,22 +30,24 @@ const AdminLoginPage = () => {
         setErrorMessage("");
 
         if (!formData.email || !formData.password) {
-            setErrorMessage("Credenciais administrativas são obrigatórias.");
+            setErrorMessage("Informe e-mail e senha.");
             return;
         }
 
         setIsLoading(true);
         try {
-            const response = await Login(formData);
-            const userRole = response?.user?.role;
+            await Login(formData);
+            const currentUser = await checkAuth();
 
-            if (!userRole) {
-                setErrorMessage("Erro ao processar dados de autenticação.");
+            if (!currentUser) {
+                setErrorMessage("Sessão inválida após o login.");
                 return;
             }
 
-            if (userRole !== 'adm') {
-                setErrorMessage("O usuário não é um administrador.");
+            if (currentUser.role !== ROLES.ADMIN) {
+                await Logout();
+                setUser(null);
+                setErrorMessage("Credenciais inválidas ou sem permissão para este painel.");
                 return;
             }
 
