@@ -11,6 +11,8 @@ const ProtectedRoute = ({ allowedRoles }) => {
         return <LoadingScreen />;
     }
 
+    console.log(user)
+
     console.log('role:', user?.role, '| permitidos:', allowedRoles);
 
     if (!isAuthenticated) {
