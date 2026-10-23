@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const data = await api('/api/v1/validate-session', { method: "POST" });
             const currentUser = data?.user ?? null;
+            console.log(data)
             console.log(currentUser)
             setUser(currentUser);
             return currentUser;
