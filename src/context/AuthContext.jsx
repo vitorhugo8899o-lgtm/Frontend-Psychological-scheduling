@@ -9,10 +9,18 @@ export const AuthProvider = ({ children }) => {
 
     const checkAuth = async () => {
         try {
-            const data = await api('/api/v1/validate-session', { method: "POST" });
-            const currentUser = data?.user ?? null;
+            const response = await api('/api/v1/validate-session', { method: "POST" });
+
+            if (!response.ok) {
+                setUser(null);
+                return null;
+            }
+
+            const data = await response.json();
+
             console.log(data)
-            console.log(currentUser)
+
+            const currentUser = data?.user ?? null;
             setUser(currentUser);
             return currentUser;
         } catch {
