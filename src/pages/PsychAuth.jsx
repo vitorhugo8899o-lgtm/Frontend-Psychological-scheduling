@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Mail, Lock, ArrowRight, ShieldCheck, AlertCircle, Brain } from "lucide-react";
+import { Mail, Lock, ArrowRight, AlertCircle, Brain } from "lucide-react";
 import { InputField } from "../componentes/Conponentes";
-import { Login } from "../servicies/Users";
-import { replace, useNavigate } from "react-router-dom";
+import { Login, Logout } from "../servicies/Users";
+import { useNavigate } from "react-router-dom";
+import { ROLES } from "../servicies/Users";
 
 
 const PsychLoginPage = () => {
@@ -15,6 +16,8 @@ const PsychLoginPage = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate()
+
+    const { checkAuth, setUser } = useAuth();
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -32,16 +35,18 @@ const PsychLoginPage = () => {
 
         setIsLoading(true);
         try {
-            const response = await Login(formData);
-            const userRole = response?.user?.role;
+            await Login(formData);
+            const currentUser = await checkAuth();
 
-            if (!userRole) {
-                setErrorMessage("Erro ao processar dados de autenticação.");
+            if (!currentUser) {
+                setErrorMessage("Sessão inválida após o login.");
                 return;
             }
 
-            if (userRole !== 'psychologist') {
-                setErrorMessage("O usuário não é um psicólogo.");
+            if (currentUser.role !== ROLES.PSYCH) {
+                await Logout();
+                setUser(null);
+                setErrorMessage("Credenciais inválidas ou sem permissão para este painel.");
                 return;
             }
 

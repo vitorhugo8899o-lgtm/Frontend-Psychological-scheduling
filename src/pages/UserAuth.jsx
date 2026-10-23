@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Mail, Lock, User, ArrowRight, LogIn, AlertCircle } from "lucide-react";
-import { CreateUser, Login } from "../servicies/Users";
+import { CreateUser, Login, Logout } from "../servicies/Users";
 import { InputField } from "../componentes/Conponentes"
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { ROLES } from "../servicies/Users";
 
 
 const AuthPage = () => {
@@ -16,7 +17,7 @@ const AuthPage = () => {
 
     const navigate = useNavigate();
 
-    const { checkAuth } = useAuth();
+    const { checkAuth, setUser } = useAuth();
 
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +30,24 @@ const AuthPage = () => {
     const toggleMode = () => {
         setIsLogin(!isLogin);
         setErrorMessage("");
+    };
+
+    const finishLogin = async () => {
+        const currentUser = await checkAuth();
+
+        if (!currentUser) {
+            setErrorMessage("Sessão inválida após o login.");
+            return;
+        }
+
+        if (currentUser.role !== ROLES.CLIENT) {
+            await Logout();
+            setUser(null);
+            setErrorMessage("Use o acesso correto para o seu tipo de conta.");
+            return;
+        }
+
+        navigate("/home", { replace: true });
     };
 
     const handleSubmit = async (e) => {
@@ -67,43 +86,12 @@ const AuthPage = () => {
         setIsLoading(true);
         try {
             if (isLogin) {
-                const data = {
-                    email: email,
-                    password: password
-                }
-                const response = await Login(data)
-
-                const success = await checkAuth();
-
-                if (success) {
-                    navigate('/home', { replace: true });
-                } else {
-                    setErrorMessage("Sessão inválida após o login.");
-                }
-
+                await Login({ email, password });
+                await finishLogin();
             } else {
-                const data = {
-                    fullname: fullName,
-                    email: email,
-                    password: password
-                }
-
-                const login = {
-                    email: email,
-                    password: password
-                }
-
-                const response = await CreateUser(data)
-
-                await Login(login)
-
-                const success = await checkAuth();
-
-                if (success) {
-                    navigate('/home', { replace: true });
-                } else {
-                    setErrorMessage("Sessão inválida após o login.");
-                }
+                await CreateUser({ fullname: fullName, email, password });
+                await Login({ email, password });
+                await finishLogin();
             }
         } catch (error) {
             setErrorMessage(error.message || "Ocorreu um erro inesperado. Tente novamente.");
