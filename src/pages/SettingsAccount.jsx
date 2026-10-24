@@ -16,14 +16,20 @@ import {
     Activity,
     FileText,
     Heart,
-    Menu
+    Menu,
+    X,
+    AlertTriangle,
+    Shield,
+    Loader2,
+    Eye,
+    EyeOff
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { UpdateUserInfo, DesactiveAccount, Logout } from '../servicies/Users';
+import { UpdateUserInfo, DesactiveAccount, Logout, ROLES } from '../servicies/Users';
 import SidebarButton from '../componentes/SidebarButton';
-
 import { useAuth } from '../context/AuthContext';
-import { ROLES } from '../servicies/Users';
+
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&*!])[A-Za-z\d@#$%&*!]{8,}$/;
 
 const NAV_BY_ROLE = {
     [ROLES.CLIENT]: [
@@ -105,6 +111,16 @@ export default function AccountSettings() {
 
         if (!email && !newPassword) {
             setUpdateError('Preencha pelo menos um campo para atualizar.');
+            return;
+        }
+
+        if (!currentPassword) {
+            setUpdateError('Informe sua senha atual para confirmar a alteração.');
+            return;
+        }
+
+        if (newPassword && !PASSWORD_REGEX.test(newPassword)) {
+            setUpdateError('A nova senha deve ter no mínimo 8 caracteres, com letra maiúscula, minúscula, número e um caractere especial (@#$%&*!).');
             return;
         }
 
@@ -200,7 +216,9 @@ export default function AccountSettings() {
                         Configurações da Conta
                     </h1>
                     <p className={`text-sm md:text-base ${isDarkMode ? 'text-gray-400' : 'text-[#8C5C32]'}`}>
-                        Gerencie suas credenciais de acesso ou desative sua conta.
+                        {user?.role === ROLES.CLIENT
+                            ? 'Gerencie suas credenciais de acesso ou desative sua conta.'
+                            : 'Gerencie suas credenciais de acesso.'}
                     </p>
                 </header>
 
@@ -314,25 +332,27 @@ export default function AccountSettings() {
                     </form>
                 </section>
 
-                <section className={`${cardBaseClass} border-l-4 border-l-red-500`}>
-                    <div className="flex items-center gap-2 mb-4">
-                        <AlertTriangle className="w-6 h-6 text-red-500" />
-                        <h2 className="text-xl font-semibold text-red-500">
-                            Zona de Perigo
-                        </h2>
-                    </div>
+                {user?.role === ROLES.CLIENT && (
+                    <section className={`${cardBaseClass} border-l-4 border-l-red-500`}>
+                        <div className="flex items-center gap-2 mb-4">
+                            <AlertTriangle className="w-6 h-6 text-red-500" />
+                            <h2 className="text-xl font-semibold text-red-500">
+                                Zona de Perigo
+                            </h2>
+                        </div>
 
-                    <p className={`text-sm mb-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Ao desativar sua conta, você perderá acesso imediato ao sistema e seu histórico ficará indisponível. Esta ação deve ser tratada com cuidado.
-                    </p>
+                        <p className={`text-sm mb-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Ao desativar sua conta, você perderá acesso imediato ao sistema e seu histórico ficará indisponível. Esta ação deve ser tratada com cuidado.
+                        </p>
 
-                    <button
-                        onClick={() => setIsDeleteModalOpen(true)}
-                        className="px-6 py-3 rounded-lg font-medium text-red-500 bg-red-500/10 border border-red-500/20 transition-all duration-200 hover:bg-red-500 hover:text-white"
-                    >
-                        Desativar minha conta
-                    </button>
-                </section>
+                        <button
+                            onClick={() => setIsDeleteModalOpen(true)}
+                            className="px-6 py-3 rounded-lg font-medium text-red-500 bg-red-500/10 border border-red-500/20 transition-all duration-200 hover:bg-red-500 hover:text-white"
+                        >
+                            Desativar minha conta
+                        </button>
+                    </section>
+                )}
             </main>
 
             {isDeleteModalOpen && (
