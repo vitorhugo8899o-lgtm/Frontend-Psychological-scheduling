@@ -87,6 +87,7 @@ export default function AccountSettings() {
 
         try {
             await Logout();
+            setUser(null)
             navigate('/', { replace: true });
         } catch (error) {
             console.error('Erro ao realizar logout:', error);
@@ -116,6 +117,7 @@ export default function AccountSettings() {
                 password: newPassword || undefined,
             });
             alert("Redirecionando para tela inicial....")
+            setUser(null)
             navigate('/', { replace: true });
 
         } catch (error) {
@@ -130,6 +132,7 @@ export default function AccountSettings() {
             setIsLoadingDelete(true);
             await DesactiveAccount();
             alert("Redirecionando para tela inicial....")
+            setUser(null)
             navigate('/', { replace: true });
         } catch (error) {
             alert(error.message || 'Ocorreu um erro ao tentar desativar sua conta.');
