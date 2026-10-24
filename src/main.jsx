@@ -118,6 +118,12 @@ const routers = createBrowserRouter([
     ]
   },
   {
+    element: <ProtectedRoute allowedRoles={[ROLES.CLIENT, ROLES.ADMIN, ROLES.PSYCH]} />,
+    children: [
+      { path: "/settings", element: <AccountSettings /> },
+    ]
+  },
+  {
     path: "*",
     element: <PageNotFoundPage />
   }
