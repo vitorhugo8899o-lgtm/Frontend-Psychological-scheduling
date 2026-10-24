@@ -14,7 +14,8 @@ import {
     DollarSign,
     CalendarClock,
     Activity,
-    FileText
+    FileText,
+    Heart
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { UpdateUserInfo, DesactiveAccount, Logout } from '../servicies/Users';
@@ -78,15 +79,6 @@ export default function AccountSettings() {
 
     const labelBaseClass = `block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-[#4A2E14]'}`;
 
-    const sendPrompt = (text) => {
-        console.log(`Prompt enviado: ${text}`);
-    };
-
-    const handleMenuClick = (text) => {
-        if (text) sendPrompt(text);
-        setIsMenuOpen(false);
-    };
-
     const LogoutUser = async (e) => {
         if (e) e.preventDefault();
         const confirmLogout = window.confirm('Você realmente deseja sair da sua conta?');
@@ -119,7 +111,8 @@ export default function AccountSettings() {
 
             await UpdateUserInfo({
                 email: email || undefined,
-                password: newPassword || undefined
+                current_password: currentPassword || undefined,
+                password: newPassword || undefined,
             });
             alert("Redirecionando para tela inicial....")
             navigate('/', { replace: true });
