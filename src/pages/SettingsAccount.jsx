@@ -21,6 +21,34 @@ import { useTheme } from '../context/ThemeContext';
 import { UpdateUserInfo, DesactiveAccount, Logout } from '../servicies/Users';
 import SidebarButton from '../componentes/SidebarButton';
 
+import { useAuth } from '../context/AuthContext';
+import { ROLES } from '../servicies/Users';
+
+const NAV_BY_ROLE = {
+    [ROLES.CLIENT]: [
+        { icon: Home, label: 'Início', to: '/home' },
+        { icon: FolderOpen, label: 'Consultas em progresso', to: '/appoiments/in-progress' },
+        { icon: CalendarPlus, label: 'Marcar consulta', to: '/appoiment' },
+        { icon: Search, label: 'Busca avançada por serviços', to: '/filter-services' },
+        { icon: ClipboardList, label: 'Minhas consultas', to: '/history-appoiment' },
+    ],
+    [ROLES.ADMIN]: [
+        { icon: Home, label: 'Início', to: '/home-adm' },
+        { icon: Users, label: 'Usuários', to: '/users-list' },
+        { icon: UserPlus, label: 'Adicionar psicólogo', to: '/add-psych' },
+        { icon: PlusSquare, label: 'Criar serviço', to: '/create-service' },
+        { icon: DollarSign, label: 'Relatório financeiro', to: '/financial-report' },
+    ],
+    [ROLES.PSYCH]: [
+        { icon: Home, label: 'Início', to: '/home-psych' },
+        { icon: CalendarClock, label: 'Disponibilidades', to: '/avaliabilites' },
+        { icon: ClipboardList, label: 'Histórico de consultas', to: '/psych-history' },
+        { icon: Activity, label: 'Métricas', to: '/dashboard' },
+        { icon: FileText, label: 'Prontuários', to: '/medical-records' },
+    ],
+};
+
+
 export default function AccountSettings() {
     const { isDarkMode } = useTheme();
     const navigate = useNavigate();
@@ -37,6 +65,9 @@ export default function AccountSettings() {
     const [isLoadingDelete, setIsLoadingDelete] = useState(false);
     const [updateError, setUpdateError] = useState('');
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    const { user, setUser } = useAuth();
+    const navItems = NAV_BY_ROLE[user?.role] ?? [];
 
     const cardBaseClass = `p-6 md:p-8 rounded-2xl border transition-colors duration-300 shadow-sm ${isDarkMode ? 'bg-[#131c2e] border-gray-800' : 'bg-white border-[#8C5C32]/15'
         }`;
@@ -157,46 +188,13 @@ export default function AccountSettings() {
                 </div>
 
                 <nav className="flex-1 py-8 flex flex-col gap-1 overflow-y-auto">
-                    <SidebarButton
-                        icon={Home}
-                        label="Início"
-                        to="/home"
-                    />
-
-                    <SidebarButton
-                        icon={FolderOpen}
-                        label="Consultas em progresso"
-                        to="/appoiments/in-progress"
-                    />
-
-                    <SidebarButton
-                        icon={CalendarPlus}
-                        label="Marcar consulta"
-                        to='/appoiment'
-                    />
-                    <SidebarButton
-                        icon={Search}
-                        label="Busca avançada por serviços"
-                        to="/filter-services"
-                    />
-                    <SidebarButton
-                        icon={ClipboardList}
-                        label="Minhas consultas"
-                        to='/history-appoiment'
-                    />
-                    <SidebarButton
-                        icon={Settings}
-                        label="Configurações de conta."
-                        to='/settings'
-                        isActive
-                    />
-
-                    <SidebarButton
-                        icon={LogOut}
-                        label="Sair"
-                        onClick={LogoutUser}
-                    />
+                    {navItems.map((item) => (
+                        <SidebarButton key={item.to} {...item} />
+                    ))}
+                    <SidebarButton icon={Settings} label="Configurações de conta" to="/settings" isActive />
+                    <SidebarButton icon={LogOut} label="Sair" onClick={LogoutUser} />
                 </nav>
+
             </aside>
 
             <main className="flex-1 p-6 md:p-10 lg:p-12 max-w-4xl mx-auto w-full overflow-y-auto">
