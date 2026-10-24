@@ -72,10 +72,6 @@ const routers = createBrowserRouter([
         element: <SearchServices />
       },
       {
-        path: "/settings",
-        element: <AccountSettings />
-      },
-      {
         path: "/history-appoiment",
         element: <AppointmentHistory />
       },
