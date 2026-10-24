@@ -15,7 +15,8 @@ import {
     CalendarClock,
     Activity,
     FileText,
-    Heart
+    Heart,
+    Menu
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { UpdateUserInfo, DesactiveAccount, Logout } from '../servicies/Users';
