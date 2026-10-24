@@ -83,6 +83,7 @@ async function Logout() {
 async function UpdateUserInfo(update_data) {
     const payload = {
         email: update_data.email,
+        current_password: update_data.current_password,
         password: update_data.password
     }
     try {
