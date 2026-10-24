@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Settings,
-    AlertTriangle,
-    Shield,
-    Loader2,
-    X,
-    Eye,
-    EyeOff,
-    Heart,
-    Menu,
     Home,
     CalendarPlus,
     Search,
     ClipboardList,
+    FolderOpen,
     LogOut,
-    FolderOpen
+    Users,
+    UserPlus,
+    PlusSquare,
+    DollarSign,
+    CalendarClock,
+    Activity,
+    FileText
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { UpdateUserInfo, DesactiveAccount, Logout } from '../servicies/Users';
