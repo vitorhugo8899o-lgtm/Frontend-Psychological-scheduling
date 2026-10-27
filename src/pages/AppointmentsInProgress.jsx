@@ -531,9 +531,10 @@ export default function AppointmentsInProgress() {
                                                 ) : (
                                                     <>
                                                         <DollarSign className="w-4 h-4" />
-                                                        <Link to={"/appointments-in-progress"}>
+                                                        <>
+                                                            <DollarSign className="w-4 h-4" />
                                                             <span>Pagar Consulta</span>
-                                                        </Link>
+                                                        </>
                                                     </>
                                                 )}
                                             </button>
