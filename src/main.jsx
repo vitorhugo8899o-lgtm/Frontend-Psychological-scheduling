@@ -31,6 +31,7 @@ import MedicalRecord from './pages/MedicalRecord.jsx';
 import ClientRecordList from './pages/UserRecordList.jsx';
 import MedicalRecordList from './pages/MedicalRecordList.jsx';
 import PageNotFoundPage from './pages/NotFoundPage.jsx';
+import PaymentCancelledPage from './pages/PaymentCancelled.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ROLES } from './servicies/Users.js';
 
@@ -55,6 +56,10 @@ const routers = createBrowserRouter([
   {
     path: "/payment-confirm",
     element: <PaymentSuccessPage />
+  },
+  {
+    path: "/payment-cancelled",
+    element: <PaymentCancelledPage />
   },
   {
     element: <ProtectedRoute allowedRoles={[ROLES.CLIENT]} />,
